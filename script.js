@@ -37,7 +37,7 @@ const categoriesData = [
       },
       {
         name: "echo \"Hello World\"",
-        description: "Affiche un texte (ou la valeur d’une variable) à l’écran.",
+        description: "Affiche un texte ou la valeur d’une variable à l’écran.",
         example: "echo $PATH"
       },
       {
@@ -49,8 +49,42 @@ const categoriesData = [
         name: "tail fichier.txt",
         description: "Affiche les dernières lignes d’un fichier (10 par défaut).",
         example: "tail -f /var/log/syslog"
+      },
+      {
+        name: "less",
+        description: "Affiche un fichier page par page (plus flexible que more).",
+        example: "less /etc/services"
+      },
+      {
+        name: "more",
+        description: "Affiche un fichier page par page (plus basique que less).",
+        example: "more /etc/protocols"
+      },
+      {
+        name: "pwd",
+        description: "Affiche le chemin complet du répertoire courant.",
+        example: "pwd"
+      },
+      {
+        name: "man commande",
+        description: "Affiche le manuel d’une commande (options, usage).",
+        example: "man ls"
+      },
+      {
+        name: "tree chemin",
+        description: "Affiche l’arborescence d’un répertoire.",
+        example: "tree /home/projets"
+      },
+      {
+        name: "id",
+        description: "Affiche l'uid, gid et groupes de l'utilisateur courant.",
+        example: "id"
+      },
+      {
+        name: "groups",
+        description: "Montre les groupes auxquels appartient l'utilisateur.",
+        example: "groups"
       }
-      // ... vous pouvez en ajouter plus si besoin ...
     ]
   },
   {
@@ -70,120 +104,301 @@ const categoriesData = [
         name: "sudo useradd nom_utilisateur",
         description: "Crée un nouvel utilisateur (sans /home par défaut).",
         example: "sudo useradd --create-home alice"
+      },
+      {
+        name: "groupadd nom_du_groupe",
+        description: "Crée un nouveau groupe (droits admin).",
+        example: "sudo groupadd developpeurs"
+      },
+      {
+        name: "sudo adduser nom_utilisateur",
+        description: "Crée un nouvel utilisateur via une interface plus conviviale.",
+        example: "sudo adduser jean"
+      },
+      {
+        name: "ln -s source cible",
+        description: "Crée un lien symbolique (raccourci) vers fichier/dossier.",
+        example: "ln -s /etc/nginx/nginx.conf ~/nginx.conf"
+      },
+      {
+        name: "parted /dev/sda",
+        description: "Ouvre l’outil parted pour créer/modifier des partitions.",
+        example: "sudo parted /dev/sda"
+      },
+      {
+        name: "mkfs -t ext4 /dev/sda1",
+        description: "Formate la partition /dev/sda1 en ext4.",
+        example: "mkfs -t ext4 /dev/sdb2"
+      },
+      {
+        name: "sudo apt install paquet",
+        description: "Installe un paquet (ex: tree) depuis les dépôts (apt).",
+        example: "sudo apt install tree"
       }
-      // ... restez libre d'ajouter d'autres commandes ...
     ]
   },
-  // ... Ajoutez toutes les autres catégories (Suppression, Modification, Copie, Déplacement) ...
+  {
+    name: "Suppression",
+    commands: [
+      {
+        name: "rm fichier.txt",
+        description: "Supprime un fichier.",
+        example: "rm rapport.txt"
+      },
+      {
+        name: "rm -r mon_dossier",
+        description: "Supprime un dossier et son contenu (récursif).",
+        example: "rm -r /home/username/Documents/Projets"
+      },
+      {
+        name: "rmdir dossier_vide",
+        description: "Supprime un répertoire vide uniquement.",
+        example: "rmdir monDossierVide"
+      },
+      {
+        name: "sudo userdel nom_utilisateur",
+        description: "Supprime un utilisateur (droits admin).",
+        example: "sudo userdel alice"
+      },
+      {
+        name: "groupdel nom_du_groupe",
+        description: "Supprime un groupe (droits admin).",
+        example: "sudo groupdel developpeurs"
+      },
+      {
+        name: "rm -f fichier.txt",
+        description: "Force la suppression d’un fichier sans confirmation.",
+        example: "rm -f importantFile.txt"
+      },
+      {
+        name: "shred fichier.txt",
+        description: "Écrase un fichier plusieurs fois puis le supprime (sécurité).",
+        example: "shred -u -n 3 secret.txt"
+      },
+      {
+        name: "find /chemin -name \"*.tmp\" -delete",
+        description: "Trouve et supprime les fichiers correspondant au motif.",
+        example: "find /home/user -name '*.bak' -delete"
+      },
+      {
+        name: "umount chemin_ou_device",
+        description: "Démonte un système de fichiers.",
+        example: "sudo umount /mnt/usb"
+      }
+    ]
+  },
+  {
+    name: "Modification",
+    commands: [
+      {
+        name: "nano fichier.txt",
+        description: "Édite un fichier texte (interface terminal).",
+        example: "nano /etc/hosts"
+      },
+      {
+        name: "chmod 755 fichier.txt",
+        description: "Change les permissions (rwx) d’un fichier/dossier.",
+        example: "chmod 755 monScript.sh"
+      },
+      {
+        name: "chown user:group fichier.txt",
+        description: "Change le propriétaire et le groupe d’un fichier.",
+        example: "sudo chown alice:dev rapport.txt"
+      },
+      {
+        name: "passwd nom_utilisateur",
+        description: "Change ou définit le mot de passe d’un utilisateur.",
+        example: "sudo passwd alice"
+      },
+      {
+        name: "usermod -aG groupe utilisateur",
+        description: "Ajoute un utilisateur à un groupe (sans enlever les autres).",
+        example: "sudo usermod -aG sudo alice"
+      },
+      {
+        name: "groupmod -n nouveau_nom ancien_nom",
+        description: "Renomme un groupe existant (droits admin).",
+        example: "sudo groupmod -n devSenior developpeurs"
+      },
+      {
+        name: "crontab -e",
+        description: "Modifie la table de cron (tâches planifiées) de l’utilisateur.",
+        example: "crontab -e"
+      },
+      {
+        name: "mount device repertoire",
+        description: "Monte une partition ou un device sur un répertoire.",
+        example: "sudo mount /dev/sdb1 /mnt/usb"
+      },
+      {
+        name: "fsck device",
+        description: "Vérifie/répare la cohérence d’un système de fichiers.",
+        example: "sudo fsck /dev/sda1"
+      },
+      {
+        name: "sync",
+        description: "Force l’écriture des données en attente sur le disque.",
+        example: "sync"
+      },
+      {
+        name: "rename 's/ancien/nouveau/' *.txt",
+        description: "Renomme par substitution tous les fichiers correspondant au motif.",
+        example: "rename 's/v1/v2/' *.txt"
+      }
+    ]
+  },
+  {
+    name: "Copie",
+    commands: [
+      {
+        name: "cp fichier1 fichier2",
+        description: "Copie un fichier vers un autre fichier ou dossier.",
+        example: "cp /etc/hosts ~/hosts_backup"
+      },
+      {
+        name: "cp -r dossier1 dossier2",
+        description: "Copie tout le contenu d’un dossier (récursivement).",
+        example: "cp -r /var/www/html /var/www/html_backup"
+      },
+      {
+        name: "scp fichier user@hote:chemin",
+        description: "Copie sécurisée (SSH) d’un fichier vers/depuis une machine distante.",
+        example: "scp index.html user@192.168.1.10:/home/user/"
+      },
+      {
+        name: "rsync -avz source destination",
+        description: "Synchronise fichiers/dossiers (local ou distant, incrémental).",
+        example: "rsync -avz /home/user/docs/ user@192.168.1.10:/backup/docs/"
+      },
+      {
+        name: "install -c fichier destination",
+        description: "Copie un fichier en réglant les permissions.",
+        example: "install -m 755 monScript.sh /usr/local/bin/"
+      },
+      {
+        name: "dd if=source of=dest",
+        description: "Copie bloc à bloc (image disque, clonage...).",
+        example: "sudo dd if=/dev/sdb of=/home/user/backup.img bs=4M"
+      }
+    ]
+  },
+  {
+    name: "Déplacement",
+    commands: [
+      {
+        name: "mv fichier.txt dossier/",
+        description: "Déplace un fichier vers un autre répertoire.",
+        example: "mv rapport.txt /home/username/Documents/"
+      },
+      {
+        name: "mv ancien.txt nouveau.txt",
+        description: "Renomme un fichier ou un dossier (même syntaxe).",
+        example: "mv cours_v1.pdf cours_final.pdf"
+      },
+      {
+        name: "cd repertoire",
+        description: "Change de répertoire courant (déplacement logique).",
+        example: "cd /home/username/Documents"
+      }
+    ]
+  }
 ];
 
-
 // ==========================================================
-// 2) LOGIQUE POUR AFFICHER CATEGORIES / COMMANDES
+// 2) LOGIQUE D'INTERACTION : Categories, Commands, Details
 // ==========================================================
 window.addEventListener("DOMContentLoaded", () => {
-  // Récupération des éléments HTML
   const sidebar = document.getElementById("sidebar");
   const commandsSection = document.getElementById("commands");
   const detailsSection = document.getElementById("details");
+  // Champ de recherche + bouton loupe
   const searchInput = document.getElementById("searchInput");
   const searchBtn = document.getElementById("searchBtn");
 
-  // A) Injection des catégories (colonne de gauche)
+  // A) Injection des catégories dans la colonne de gauche
   const ulCategories = document.createElement("ul");
-  categoriesData.forEach((category, catIndex) => {
-    const liCategory = document.createElement("li");
-    liCategory.textContent = category.name;
+  categoriesData.forEach((cat, catIndex) => {
+    const liCat = document.createElement("li");
+    liCat.textContent = cat.name;
 
-    // Au clic sur une catégorie, on affiche ses commandes
-    liCategory.addEventListener("click", () => {
+    liCat.addEventListener("click", () => {
       displayCommands(catIndex);
     });
-
-    ulCategories.appendChild(liCategory);
+    ulCategories.appendChild(liCat);
   });
   sidebar.appendChild(ulCategories);
 
-
-  // B) Fonction pour afficher la liste des commandes (colonne du milieu)
+  // B) Afficher la liste des commandes (colonne du milieu)
   function displayCommands(catIndex) {
     commandsSection.innerHTML = "";
     detailsSection.innerHTML = "<p>Sélectionnez une commande pour voir les détails.</p>";
 
-    const selectedCategory = categoriesData[catIndex];
-    if (!selectedCategory) return;
+    const selectedCat = categoriesData[catIndex];
+    if (!selectedCat) return;
 
-    const ulCommands = document.createElement("ul");
+    const ulCmd = document.createElement("ul");
+    selectedCat.commands.forEach((cmd, cmdIndex) => {
+      const liCmd = document.createElement("li");
+      liCmd.textContent = cmd.name;
 
-    selectedCategory.commands.forEach((cmd, cmdIndex) => {
-      const liCommand = document.createElement("li");
-      liCommand.textContent = cmd.name;
-
-      // Au clic, afficher détails
-      liCommand.addEventListener("click", () => {
+      liCmd.addEventListener("click", () => {
         displayCommandDetails(catIndex, cmdIndex);
       });
 
-      ulCommands.appendChild(liCommand);
+      ulCmd.appendChild(liCmd);
     });
 
-    commandsSection.appendChild(ulCommands);
+    commandsSection.appendChild(ulCmd);
   }
 
-
-  // C) Fonction pour afficher détails (colonne de droite)
+  // C) Afficher les détails (colonne de droite)
   function displayCommandDetails(catIndex, cmdIndex) {
     detailsSection.innerHTML = "";
 
     const cmd = categoriesData[catIndex].commands[cmdIndex];
     if (!cmd) return;
 
-    const title = document.createElement("h2");
-    title.textContent = cmd.name;
+    const h2 = document.createElement("h2");
+    h2.textContent = cmd.name;
 
     const hr = document.createElement("hr");
 
-    const descParagraph = document.createElement("p");
-    descParagraph.innerHTML = `<strong>Description :</strong> ${cmd.description}`;
+    const pDesc = document.createElement("p");
+    pDesc.innerHTML = `<strong>Description :</strong> ${cmd.description}`;
 
-    const exampleParagraph = document.createElement("p");
-    exampleParagraph.innerHTML = `<strong>Exemple :</strong> <code>${cmd.example}</code>`;
+    const pEx = document.createElement("p");
+    pEx.innerHTML = `<strong>Exemple :</strong> <code>${cmd.example}</code>`;
 
-    detailsSection.appendChild(title);
+    detailsSection.appendChild(h2);
     detailsSection.appendChild(hr);
-    detailsSection.appendChild(descParagraph);
-    detailsSection.appendChild(exampleParagraph);
+    detailsSection.appendChild(pDesc);
+    detailsSection.appendChild(pEx);
   }
-
 
   // ==========================================================
   // 3) RECHERCHE (champ + bouton loupe)
   // ==========================================================
-  //  A) Sur écoute de saisie dans le champ
+  //  A) Écoute la saisie
   searchInput.addEventListener("input", handleSearch);
-
-  //  B) Ou sur clic du bouton loupe
-  searchBtn.addEventListener("click", () => {
-    handleSearch();
-  });
+  //  B) Écoute le clic sur le bouton
+  searchBtn.addEventListener("click", handleSearch);
 
   function handleSearch() {
     const query = searchInput.value.toLowerCase().trim();
-
     if (!query) {
-      // Si le champ est vide, on réinitialise l'affichage
+      // Si le champ est vide, on réinitialise
       commandsSection.innerHTML = "<p>Sélectionnez une catégorie pour afficher les commandes.</p>";
       detailsSection.innerHTML = "<p>Sélectionnez une commande pour voir les détails.</p>";
       return;
     }
 
-    // Recherche dans toutes les catégories / commandes
-    let matchedCommands = [];
+    // Recherche dans toutes les catégories
+    let matched = [];
     categoriesData.forEach((cat) => {
       cat.commands.forEach((cmd) => {
-        const searchString = (cmd.name + " " + cmd.description + " " + cmd.example).toLowerCase();
-        if (searchString.includes(query)) {
-          matchedCommands.push({
+        const allText = (cmd.name + " " + cmd.description + " " + cmd.example).toLowerCase();
+        if (allText.includes(query)) {
+          matched.push({
             category: cat.name,
             name: cmd.name,
             description: cmd.description,
@@ -193,11 +408,10 @@ window.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-    // Affiche la liste filtrée dans la colonne du milieu
-    displaySearchResults(matchedCommands);
+    displaySearchResults(matched);
   }
 
-  // Génère la liste des résultats
+  // Affiche la liste filtrée (colonne du milieu)
   function displaySearchResults(results) {
     commandsSection.innerHTML = "";
     detailsSection.innerHTML = "<p>Cliquez sur une commande pour voir les détails.</p>";
@@ -208,41 +422,37 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     const ul = document.createElement("ul");
-
-    results.forEach((item, index) => {
+    results.forEach((item) => {
       const li = document.createElement("li");
-      // On affiche "nom de la commande (Catégorie: X)"
+      // On affiche le nom + (Catégorie: X)
       li.textContent = `${item.name} (Catégorie: ${item.category})`;
 
-      // Au clic, on montre ses détails
       li.addEventListener("click", () => {
         displaySearchedCommandDetails(item);
       });
-
       ul.appendChild(li);
     });
-
     commandsSection.appendChild(ul);
   }
 
-  // Affiche les détails d'un item trouvé
+  // Affiche les détails d'un item trouvé via recherche
   function displaySearchedCommandDetails(item) {
     detailsSection.innerHTML = "";
 
-    const title = document.createElement("h2");
-    title.textContent = item.name;
+    const h2 = document.createElement("h2");
+    h2.textContent = item.name;
 
     const hr = document.createElement("hr");
 
-    const descP = document.createElement("p");
-    descP.innerHTML = `<strong>Description :</strong> ${item.description}`;
+    const pDesc = document.createElement("p");
+    pDesc.innerHTML = `<strong>Description :</strong> ${item.description}`;
 
-    const exP = document.createElement("p");
-    exP.innerHTML = `<strong>Exemple :</strong> <code>${item.example}</code>`;
+    const pEx = document.createElement("p");
+    pEx.innerHTML = `<strong>Exemple :</strong> <code>${item.example}</code>`;
 
-    detailsSection.appendChild(title);
+    detailsSection.appendChild(h2);
     detailsSection.appendChild(hr);
-    detailsSection.appendChild(descP);
-    detailsSection.appendChild(exP);
+    detailsSection.appendChild(pDesc);
+    detailsSection.appendChild(pEx);
   }
 });
