@@ -1,6 +1,6 @@
-// ===============================
-// 1) TABLEAU DES COMMANDES
-// ===============================
+// ==========================================================
+// 1) TABLEAU CATEGORIES + COMMANDES
+// ==========================================================
 const categoriesData = [
   {
     name: "Affichage",
@@ -12,17 +12,17 @@ const categoriesData = [
       },
       {
         name: "ls -l",
-        description: "Liste détaillée avec droits, propriétaire, taille, etc.",
+        description: "Liste détaillée (droits, propriétaire, taille...).",
         example: "ls -l --color=auto /var/log"
       },
       {
         name: "cat fichier.txt",
-        description: "Affiche le contenu d’un fichier texte sur la sortie standard.",
+        description: "Affiche le contenu d’un fichier texte.",
         example: "cat /var/log/syslog"
       },
       {
         name: "cut -d: -f1 /etc/passwd",
-        description: "Extrait le 1er champ (séparateur `:`) du fichier passwd.",
+        description: "Extrait le 1er champ (séparateur :) du fichier passwd.",
         example: "cut -d: -f1 /etc/passwd"
       },
       {
@@ -37,7 +37,7 @@ const categoriesData = [
       },
       {
         name: "echo \"Hello World\"",
-        description: "Affiche un texte à l’écran (ou la valeur d’une variable).",
+        description: "Affiche un texte (ou la valeur d’une variable) à l’écran.",
         example: "echo $PATH"
       },
       {
@@ -52,12 +52,12 @@ const categoriesData = [
       },
       {
         name: "less",
-        description: "Affiche le contenu d’un fichier page par page (navigation facile).",
+        description: "Affiche un fichier page par page (navigation plus flexible).",
         example: "less /etc/services"
       },
       {
         name: "more",
-        description: "Affiche un fichier page par page (moins flexible que less).",
+        description: "Affiche un fichier page par page (plus basique que less).",
         example: "more /etc/protocols"
       },
       {
@@ -72,7 +72,7 @@ const categoriesData = [
       },
       {
         name: "tree chemin",
-        description: "Affiche de façon arborescente le contenu d’un répertoire.",
+        description: "Affiche en arborescence le contenu d’un répertoire.",
         example: "tree /home/projets"
       },
       {
@@ -82,7 +82,7 @@ const categoriesData = [
       },
       {
         name: "groups",
-        description: "Montre tous les groupes auxquels appartient l'utilisateur.",
+        description: "Montre les groupes auxquels appartient l'utilisateur.",
         example: "groups"
       }
     ]
@@ -92,22 +92,22 @@ const categoriesData = [
     commands: [
       {
         name: "touch fichier.txt",
-        description: "Crée un nouveau fichier vide ou met à jour sa date s'il existe.",
+        description: "Crée un nouveau fichier vide ou met à jour sa date.",
         example: "touch rapport.txt"
       },
       {
         name: "mkdir mon_dossier",
-        description: "Crée un nouveau dossier dans le répertoire courant ou spécifié.",
+        description: "Crée un nouveau dossier (répertoire).",
         example: "mkdir /home/username/Documents/Projets"
       },
       {
         name: "sudo useradd nom_utilisateur",
-        description: "Crée un nouvel utilisateur (sans répertoire home par défaut).",
+        description: "Crée un nouvel utilisateur (sans /home par défaut).",
         example: "sudo useradd --create-home alice"
       },
       {
         name: "groupadd nom_du_groupe",
-        description: "Crée un nouveau groupe (requiert privilèges admin).",
+        description: "Crée un nouveau groupe (droits admin).",
         example: "sudo groupadd developpeurs"
       },
       {
@@ -117,22 +117,22 @@ const categoriesData = [
       },
       {
         name: "ln -s source cible",
-        description: "Crée un lien symbolique (raccourci) vers un fichier ou dossier.",
+        description: "Crée un lien symbolique (raccourci) vers fichier/dossier.",
         example: "ln -s /etc/nginx/nginx.conf ~/nginx.conf"
       },
       {
         name: "parted /dev/sda",
-        description: "Ouvre l’outil pour créer/modifier des partitions sur /dev/sda.",
+        description: "Ouvre l’outil parted pour créer/modifier des partitions.",
         example: "sudo parted /dev/sda"
       },
       {
         name: "mkfs -t ext4 /dev/sda1",
-        description: "Formate la partition /dev/sda1 en ext4 (création système de fichiers).",
+        description: "Formate la partition /dev/sda1 en ext4.",
         example: "mkfs -t ext4 /dev/sdb2"
       },
       {
         name: "sudo apt install paquet",
-        description: "Installe un paquet (ex: tree) depuis les dépôts (Debian/Ubuntu).",
+        description: "Installe un paquet (ex: tree) via apt (Debian/Ubuntu).",
         example: "sudo apt install tree"
       }
     ]
@@ -147,7 +147,7 @@ const categoriesData = [
       },
       {
         name: "rm -r mon_dossier",
-        description: "Supprime un dossier et son contenu (récursif).",
+        description: "Supprime un dossier et tout son contenu (récursif).",
         example: "rm -r /home/username/Documents/Projets"
       },
       {
@@ -157,12 +157,12 @@ const categoriesData = [
       },
       {
         name: "sudo userdel nom_utilisateur",
-        description: "Supprime un utilisateur du système (droits admin).",
+        description: "Supprime un utilisateur (droits admin).",
         example: "sudo userdel alice"
       },
       {
         name: "groupdel nom_du_groupe",
-        description: "Supprime un groupe du système (droits admin).",
+        description: "Supprime un groupe (droits admin).",
         example: "sudo groupdel developpeurs"
       },
       {
@@ -177,12 +177,12 @@ const categoriesData = [
       },
       {
         name: "find /chemin -name \"*.tmp\" -delete",
-        description: "Trouve et supprime tous les fichiers correspondant au motif.",
+        description: "Trouve et supprime les fichiers correspondant au motif.",
         example: "find /home/user -name '*.bak' -delete"
       },
       {
         name: "umount chemin_ou_device",
-        description: "Démonte un système de fichiers (arrête de l’utiliser).",
+        description: "Démonte un système de fichiers.",
         example: "sudo umount /mnt/usb"
       }
     ]
@@ -192,27 +192,27 @@ const categoriesData = [
     commands: [
       {
         name: "nano fichier.txt",
-        description: "Édite un fichier texte avec l’éditeur Nano (ligne de commande).",
+        description: "Édite un fichier texte avec Nano (terminal).",
         example: "nano /etc/hosts"
       },
       {
         name: "chmod 755 fichier.txt",
-        description: "Change les permissions d’un fichier (rwx pour propriétaire).",
+        description: "Change les permissions (rwx) d’un fichier/dossier.",
         example: "chmod 755 monScript.sh"
       },
       {
         name: "chown user:group fichier.txt",
-        description: "Change propriétaire et groupe d’un fichier ou dossier.",
+        description: "Change le propriétaire et le groupe d’un fichier.",
         example: "sudo chown alice:developpeurs rapport.txt"
       },
       {
         name: "passwd nom_utilisateur",
-        description: "Change (ou définit) le mot de passe d’un utilisateur.",
+        description: "Change ou définit le mot de passe d’un utilisateur.",
         example: "sudo passwd alice"
       },
       {
         name: "usermod -aG groupe utilisateur",
-        description: "Ajoute un utilisateur à un groupe (sans enlever ses autres groupes).",
+        description: "Ajoute un utilisateur à un groupe (sans enlever les autres).",
         example: "sudo usermod -aG sudo alice"
       },
       {
@@ -222,7 +222,7 @@ const categoriesData = [
       },
       {
         name: "crontab -e",
-        description: "Modifie la table de cron (tâches planifiées) de l’utilisateur courant.",
+        description: "Modifie la table de cron (tâches planifiées) de l’utilisateur.",
         example: "crontab -e"
       },
       {
@@ -232,12 +232,12 @@ const categoriesData = [
       },
       {
         name: "fsck device",
-        description: "Vérifie/répare la cohérence du système de fichiers sur une partition.",
+        description: "Vérifie/répare la cohérence d’un système de fichiers.",
         example: "sudo fsck /dev/sda1"
       },
       {
         name: "sync",
-        description: "Force l’écriture des données en attente sur le disque (flush).",
+        description: "Force l’écriture des données en attente sur le disque.",
         example: "sync"
       },
       {
@@ -257,27 +257,27 @@ const categoriesData = [
       },
       {
         name: "cp -r dossier1 dossier2",
-        description: "Copie tout le contenu d’un dossier vers un autre (récursivement).",
+        description: "Copie tout le contenu d’un dossier (récursivement).",
         example: "cp -r /var/www/html /var/www/html_backup"
       },
       {
         name: "scp fichier user@hote:chemin",
-        description: "Copie sécurisée d’un fichier vers/depuis une machine distante via SSH.",
+        description: "Copie sécurisée (SSH) d’un fichier vers/depuis une machine distante.",
         example: "scp index.html user@192.168.1.10:/home/user/"
       },
       {
         name: "rsync -avz source destination",
-        description: "Synchronise fichiers/dossiers en local ou à distance (incrémental, rapide).",
+        description: "Synchronise fichiers/dossiers en local ou distant (incrémental).",
         example: "rsync -avz /home/user/docs/ user@192.168.1.10:/backup/docs/"
       },
       {
         name: "install -c fichier destination",
-        description: "Copie un fichier et règle ses permissions (pour installer un script).",
+        description: "Copie un fichier en réglant les permissions (installation).",
         example: "install -m 755 monScript.sh /usr/local/bin/"
       },
       {
         name: "dd if=source of=dest",
-        description: "Copie bloc à bloc (clonage de partition, image disque, etc.).",
+        description: "Copie bloc à bloc (image disque, clonage...).",
         example: "sudo dd if=/dev/sdb of=/home/user/backup.img bs=4M"
       }
     ]
@@ -292,30 +292,31 @@ const categoriesData = [
       },
       {
         name: "mv ancien.txt nouveau.txt",
-        description: "Renomme un fichier ou un dossier (même commande que pour déplacer).",
+        description: "Renomme un fichier ou un dossier (même syntaxe).",
         example: "mv cours_v1.pdf cours_final.pdf"
       },
       {
         name: "cd repertoire",
-        description: "Change de répertoire courant (déplacement logique dans l’arborescence).",
+        description: "Change de répertoire courant (déplacement logique).",
         example: "cd /home/username/Documents"
       }
     ]
   }
 ];
 
-// ===============================
-// 2) LOGIQUE D'AFFICHAGE
-// ===============================
+// ==========================================================
+// 2) LOGIQUE POUR AFFICHER CATEGORIES / COMMANDES
+// ==========================================================
 window.addEventListener("DOMContentLoaded", () => {
-  // On récupère les 3 colonnes
+  // Récupération des éléments HTML
   const sidebar = document.getElementById("sidebar");
   const commandsSection = document.getElementById("commands");
   const detailsSection = document.getElementById("details");
+  const searchInput = document.getElementById("searchInput");
 
-  // 1) Générer la liste des catégories (colonne de gauche)
+  // --- A) Injection des catégories (colonne de gauche) ---
   const ulCategories = document.createElement("ul");
-  
+
   categoriesData.forEach((category, catIndex) => {
     const liCategory = document.createElement("li");
     liCategory.textContent = category.name;
@@ -327,12 +328,11 @@ window.addEventListener("DOMContentLoaded", () => {
 
     ulCategories.appendChild(liCategory);
   });
-  
+
   sidebar.appendChild(ulCategories);
 
-  // 2) Fonction pour afficher la liste des commandes (colonne du milieu)
+  // --- B) Fonction pour afficher les commandes d'une catégorie ---
   function displayCommands(catIndex) {
-    // On vide le contenu avant d'afficher
     commandsSection.innerHTML = "";
     detailsSection.innerHTML = "<p>Sélectionnez une commande pour voir les détails.</p>";
 
@@ -343,7 +343,7 @@ window.addEventListener("DOMContentLoaded", () => {
       const liCommand = document.createElement("li");
       liCommand.textContent = cmd.name;
 
-      // Au clic sur la commande, afficher ses détails
+      // Au clic, afficher détails
       liCommand.addEventListener("click", () => {
         displayCommandDetails(catIndex, cmdIndex);
       });
@@ -354,25 +354,20 @@ window.addEventListener("DOMContentLoaded", () => {
     commandsSection.appendChild(ulCommands);
   }
 
-  // 3) Fonction pour afficher les détails (colonne de droite)
+  // --- C) Fonction pour afficher les détails d'une commande (colonne de droite) ---
   function displayCommandDetails(catIndex, cmdIndex) {
     const { name, description, example } = categoriesData[catIndex].commands[cmdIndex];
 
-    // On nettoie la zone de droite
     detailsSection.innerHTML = "";
 
-    // Titre (nom de la commande)
     const title = document.createElement("h2");
     title.textContent = name;
 
-    // Barre horizontale sous le titre
     const hr = document.createElement("hr");
 
-    // Paragraphe de description
     const descParagraph = document.createElement("p");
     descParagraph.innerHTML = `<strong>Description :</strong> ${description}`;
 
-    // Paragraphe d'exemple
     const exampleParagraph = document.createElement("p");
     exampleParagraph.innerHTML = `<strong>Exemple :</strong> <code>${example}</code>`;
 
@@ -380,5 +375,91 @@ window.addEventListener("DOMContentLoaded", () => {
     detailsSection.appendChild(hr);
     detailsSection.appendChild(descParagraph);
     detailsSection.appendChild(exampleParagraph);
+  }
+
+  // ==========================================================
+  // 3) CHAMP DE RECHERCHE (Filtrage en temps réel)
+  // ==========================================================
+  // Ecoute l'événement "input" sur #searchInput
+  searchInput.addEventListener("input", handleSearch);
+
+  function handleSearch() {
+    const query = searchInput.value.toLowerCase().trim();
+
+    if (!query) {
+      // Si le champ est vide, on réinitialise l'affichage
+      commandsSection.innerHTML = "<p>Sélectionnez une catégorie pour afficher les commandes.</p>";
+      detailsSection.innerHTML = "<p>Sélectionnez une commande pour voir les détails.</p>";
+      return;
+    }
+
+    // Rechercher dans toutes les catégories / commandes
+    let matchedCommands = [];
+    categoriesData.forEach((cat) => {
+      cat.commands.forEach((cmd) => {
+        // On concatène name + description + example pour la recherche
+        const searchString = (cmd.name + " " + cmd.description + " " + cmd.example).toLowerCase();
+        if (searchString.includes(query)) {
+          // On stocke la commande trouvée, en notant aussi sa catégorie
+          matchedCommands.push({
+            category: cat.name,
+            name: cmd.name,
+            description: cmd.description,
+            example: cmd.example
+          });
+        }
+      });
+    });
+
+    // Affiche la liste des résultats dans la colonne du milieu
+    displaySearchResults(matchedCommands);
+  }
+
+  // Génère la liste des résultats (colonne du milieu). Au clic, on montre les détails.
+  function displaySearchResults(results) {
+    commandsSection.innerHTML = "";
+    detailsSection.innerHTML = "<p>Cliquez sur une commande pour voir les détails.</p>";
+
+    if (results.length === 0) {
+      commandsSection.innerHTML = "<p>Aucun résultat pour cette recherche.</p>";
+      return;
+    }
+
+    const ul = document.createElement("ul");
+
+    results.forEach((item, index) => {
+      const li = document.createElement("li");
+      // On affiche le nom de la commande, et la catégorie pour info
+      li.textContent = `${item.name} (Catégorie: ${item.category})`;
+
+      li.addEventListener("click", () => {
+        // Afficher les détails de cet item
+        displaySearchCommandDetails(item);
+      });
+
+      ul.appendChild(li);
+    });
+
+    commandsSection.appendChild(ul);
+  }
+
+  // Affiche les détails d'une commande trouvée par la recherche
+  function displaySearchCommandDetails(item) {
+    detailsSection.innerHTML = "";
+
+    const title = document.createElement("h2");
+    title.textContent = item.name;
+
+    const hr = document.createElement("hr");
+    const descP = document.createElement("p");
+    descP.innerHTML = `<strong>Description :</strong> ${item.description}`;
+
+    const exP = document.createElement("p");
+    exP.innerHTML = `<strong>Exemple :</strong> <code>${item.example}</code>`;
+
+    detailsSection.appendChild(title);
+    detailsSection.appendChild(hr);
+    detailsSection.appendChild(descP);
+    detailsSection.appendChild(exP);
   }
 });
