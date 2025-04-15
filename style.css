@@ -1,0 +1,137 @@
+/* ------------------------------------------ */
+/* 1) Réinitialisation & réglages de base     */
+/* ------------------------------------------ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #333;
+  height: 100%;
+  /* Dégradé vertical du clair vers un bleu plus soutenu */
+  background: linear-gradient(to bottom, #eef7ff, #6393e8);
+}
+
+/* ------------------- */
+/* 2) Header & Footer  */
+/* ------------------- */
+
+header, footer {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 1rem;
+  text-align: center;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+  margin-bottom: 0;
+  color: #336699;
+}
+
+footer a {
+  text-decoration: none;
+  color: #336699;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* -------------------------------------- */
+/* 3) Conteneur principal, 3 colonnes     */
+/* -------------------------------------- */
+
+.container {
+  display: flex;
+  flex-direction: row;
+  min-height: calc(100vh - 160px);
+  margin: 0 1rem;
+}
+
+/* -------------------------------------- */
+/* 4) Colonnes : sidebar, commands, etc.  */
+/* -------------------------------------- */
+
+.sidebar, .commands, .details {
+  background-color: rgba(255, 255, 255, 0.85);
+  margin: 0.5rem;
+  border-radius: 5px;
+  padding: 1rem;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar {
+  width: 20%;
+}
+
+.commands {
+  width: 40%;
+}
+
+.details {
+  width: 40%;
+}
+
+/* ------------------------- */
+/* 5) Listes, textes & code  */
+/* ------------------------- */
+
+/* Supprime les puces pour sidebar et commands */
+.sidebar ul,
+.commands ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Couleur pour la liste des catégories */
+.sidebar li {
+  color: #2d5580;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+}
+
+/* Couleur pour la liste des commandes */
+.commands li {
+  color: #293d5c;
+  margin-bottom: 0.5rem;
+  cursor: pointer;
+}
+
+/* Titre principal des détails */
+.details h2 {
+  color: #1a2d4b;
+}
+
+/* Survol souligné */
+.sidebar li:hover,
+.commands li:hover {
+  text-decoration: underline;
+}
+
+/* Mise en forme du code (pour exemples) */
+code {
+  background-color: #f3f3f3;
+  color: #c7254e;
+  padding: 2px 4px;
+  border-radius: 4px;
+  font-family: "Courier New", Courier, monospace;
+}
+
+/* ------------------------- */
+/* 6) Responsivité (mobile)  */
+/* ------------------------- */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .sidebar, .commands, .details {
+    width: 100%;
+    margin: 0 0 1rem 0;
+    border-radius: 0;
+  }
+}
