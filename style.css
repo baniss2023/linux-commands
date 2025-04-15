@@ -1,6 +1,4 @@
-/* ------------------------------------------ */
-/* 1) Réinitialisation & réglages de base     */
-/* ------------------------------------------ */
+/* 1) Réinitialisation & base */
 * {
   margin: 0;
   padding: 0;
@@ -11,14 +9,10 @@ html, body {
   font-family: Arial, Helvetica, sans-serif;
   color: #333;
   height: 100%;
-  /* Dégradé vertical du clair vers un bleu plus soutenu */
   background: linear-gradient(to bottom, #eef7ff, #6393e8);
 }
 
-/* ------------------- */
-/* 2) Header & Footer  */
-/* ------------------- */
-
+/* 2) Header & Footer */
 header, footer {
   background-color: rgba(255, 255, 255, 0.8);
   padding: 1rem;
@@ -35,15 +29,22 @@ footer a {
   text-decoration: none;
   color: #336699;
 }
-
 footer a:hover {
   text-decoration: underline;
 }
 
-/* -------------------------------------- */
-/* 3) Conteneur principal, 3 colonnes     */
-/* -------------------------------------- */
+/* 3) Barre de recherche */
+.search-container {
+  text-align: center;
+  margin: 1rem;
+}
+#searchInput {
+  width: 300px;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
 
+/* 4) Container principal en 3 colonnes */
 .container {
   display: flex;
   flex-direction: row;
@@ -51,10 +52,7 @@ footer a:hover {
   margin: 0 1rem;
 }
 
-/* -------------------------------------- */
-/* 4) Colonnes : sidebar, commands, etc.  */
-/* -------------------------------------- */
-
+/* Colonnes */
 .sidebar, .commands, .details {
   background-color: rgba(255, 255, 255, 0.85);
   margin: 0.5rem;
@@ -62,24 +60,11 @@ footer a:hover {
   padding: 1rem;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
 }
+.sidebar { width: 20%; }
+.commands { width: 40%; }
+.details  { width: 40%; }
 
-.sidebar {
-  width: 20%;
-}
-
-.commands {
-  width: 40%;
-}
-
-.details {
-  width: 40%;
-}
-
-/* ------------------------- */
-/* 5) Listes, textes & code  */
-/* ------------------------- */
-
-/* Supprime les puces pour sidebar et commands */
+/* 5) Listes, textes & code */
 .sidebar ul,
 .commands ul {
   list-style: none;
@@ -87,21 +72,19 @@ footer a:hover {
   padding: 0;
 }
 
-/* Couleur pour la liste des catégories */
+/* Liens cliquables dans sidebar et liste de commandes */
 .sidebar li {
   color: #2d5580;
   margin-bottom: 0.5rem;
   cursor: pointer;
 }
-
-/* Couleur pour la liste des commandes */
 .commands li {
   color: #293d5c;
   margin-bottom: 0.5rem;
   cursor: pointer;
 }
 
-/* Titre principal des détails */
+/* Titre détails (colonne de droite) */
 .details h2 {
   color: #1a2d4b;
 }
@@ -112,7 +95,7 @@ footer a:hover {
   text-decoration: underline;
 }
 
-/* Mise en forme du code (pour exemples) */
+/* Mise en forme du code */
 code {
   background-color: #f3f3f3;
   color: #c7254e;
@@ -121,14 +104,11 @@ code {
   font-family: "Courier New", Courier, monospace;
 }
 
-/* ------------------------- */
-/* 6) Responsivité (mobile)  */
-/* ------------------------- */
+/* 6) Responsivité (mobile) */
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
   }
-
   .sidebar, .commands, .details {
     width: 100%;
     margin: 0 0 1rem 0;
