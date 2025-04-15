@@ -315,6 +315,9 @@ window.addEventListener("DOMContentLoaded", () => {
   const searchInput = document.getElementById("searchInput");
   const searchBtn = document.getElementById("searchBtn");
 
+  // Bouton pour activer/désactiver le mode sombre
+  const darkModeToggle = document.getElementById("darkModeToggle");
+
   // A) Injection des catégories dans la colonne de gauche
   const ulCategories = document.createElement("ul");
   categoriesData.forEach((cat, catIndex) => {
@@ -455,4 +458,13 @@ window.addEventListener("DOMContentLoaded", () => {
     detailsSection.appendChild(pDesc);
     detailsSection.appendChild(pEx);
   }
+
+  // ==========================================================
+  // 4) MODE SOMBRE - Toggle
+  // ==========================================================
+  darkModeToggle.addEventListener("click", () => {
+    // Bascule la classe "dark-mode" sur le <body>
+    document.body.classList.toggle("dark-mode");
+  });
+
 });
