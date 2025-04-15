@@ -1,4 +1,6 @@
-/* 1) Réinitialisation & base */
+/* ------------------------------------------ */
+/* 1) Réinitialisation & réglages de base     */
+/* ------------------------------------------ */
 * {
   margin: 0;
   padding: 0;
@@ -9,22 +11,30 @@ html, body {
   font-family: Arial, Helvetica, sans-serif;
   color: #333;
   height: 100%;
+  /* Dégradé vertical du clair vers un bleu plus soutenu */
   background: linear-gradient(to bottom, #eef7ff, #6393e8);
 }
 
-/* 2) Header & Footer */
+/* ------------------- */
+/* 2) Header & Footer  */
+/* ------------------- */
+
 header, footer {
+  display: flex;              /* mise en page horizontale */
+  align-items: center;        /* centre verticalement */
+  justify-content: space-between; /* titre à gauche + recherche à droite */
   background-color: rgba(255, 255, 255, 0.8);
   padding: 1rem;
-  text-align: center;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
 }
 
+/* Le titre, à gauche */
 header h1 {
-  margin-bottom: 0;
+  margin: 0;
   color: #336699;
 }
 
+/* Footer : lien droits d'auteurs */
 footer a {
   text-decoration: none;
   color: #336699;
@@ -33,26 +43,51 @@ footer a:hover {
   text-decoration: underline;
 }
 
-/* 3) Barre de recherche */
-.search-container {
-  text-align: center;
-  margin: 1rem;
-}
-#searchInput {
-  width: 300px;
-  padding: 0.5rem;
-  font-size: 1rem;
+/* ------------------------------------- */
+/* 3) Barre de recherche dans le header  */
+/* ------------------------------------- */
+.search-box {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  border-radius: 50px;  /* arrondi style "pill" */
+  padding: 0 0.5rem;
 }
 
-/* 4) Container principal en 3 colonnes */
+.search-box input {
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  padding: 0.5rem 0.5rem;
+  width: 210px; /* ajustez comme vous voulez */
+  border-radius: 50px; /* arrondi interne */
+}
+
+.search-box button {
+  border: none;
+  outline: none;
+  background: transparent;
+  cursor: pointer;
+  margin-left: 0.2rem;
+  color: #666;
+}
+
+.search-box button:hover {
+  color: #000;
+}
+
+/* -------------------------------------- */
+/* 4) Conteneur principal, 3 colonnes     */
+/* -------------------------------------- */
+
 .container {
   display: flex;
   flex-direction: row;
-  min-height: calc(100vh - 160px);
+  min-height: calc(100vh - 160px); /* ajuster selon header/footer */
   margin: 0 1rem;
 }
 
-/* Colonnes */
 .sidebar, .commands, .details {
   background-color: rgba(255, 255, 255, 0.85);
   margin: 0.5rem;
@@ -60,11 +95,18 @@ footer a:hover {
   padding: 1rem;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
 }
-.sidebar { width: 20%; }
-.commands { width: 40%; }
-.details  { width: 40%; }
 
-/* 5) Listes, textes & code */
+.sidebar {
+  width: 20%;
+}
+.commands {
+  width: 40%;
+}
+.details {
+  width: 40%;
+}
+
+/* Supprime les puces pour sidebar et commands */
 .sidebar ul,
 .commands ul {
   list-style: none;
@@ -72,30 +114,32 @@ footer a:hover {
   padding: 0;
 }
 
-/* Liens cliquables dans sidebar et liste de commandes */
+/* Couleur pour la liste des catégories */
 .sidebar li {
   color: #2d5580;
   margin-bottom: 0.5rem;
   cursor: pointer;
 }
+.sidebar li:hover {
+  text-decoration: underline;
+}
+
+/* Couleur pour la liste des commandes */
 .commands li {
   color: #293d5c;
   margin-bottom: 0.5rem;
   cursor: pointer;
 }
-
-/* Titre détails (colonne de droite) */
-.details h2 {
-  color: #1a2d4b;
-}
-
-/* Survol souligné */
-.sidebar li:hover,
 .commands li:hover {
   text-decoration: underline;
 }
 
-/* Mise en forme du code */
+/* Titre principal des détails (colonne de droite) */
+.details h2 {
+  color: #1a2d4b;
+}
+
+/* Mise en forme du code (pour exemples) */
 code {
   background-color: #f3f3f3;
   color: #c7254e;
@@ -104,14 +148,22 @@ code {
   font-family: "Courier New", Courier, monospace;
 }
 
-/* 6) Responsivité (mobile) */
+/* -------------------------------- */
+/* 5) Responsivité (mobile)         */
+/* -------------------------------- */
 @media (max-width: 768px) {
   .container {
     flex-direction: column;
   }
+
   .sidebar, .commands, .details {
     width: 100%;
     margin: 0 0 1rem 0;
     border-radius: 0;
+  }
+
+  /* Ajuster la search-box sur mobile */
+  .search-box input {
+    width: 140px;
   }
 }
