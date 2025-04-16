@@ -1,18 +1,15 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Commandes Linux</title>
-  <meta name="description" content="Site pédagogique pour découvrir les commandes Linux, avec explications, exemples, catégories et moteur de recherche intégré.">
-
+  <title>AEC-2025 Commandes Linux</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
     <!-- Titre à gauche -->
-    <h1>AEC-2025 CCommandes Linux</h1>
-
-    <!-- Conteneur à droite pour la recherche + boutons -->
+    <h1>Commandes Linux</h1>
     <div class="header-right">
       <div class="search-box">
         <input type="text" id="searchInput" placeholder="Rechercher une commande...">
@@ -26,45 +23,30 @@
           </svg>
         </button>
       </div>
-
-      <!-- Bouton de bascule mode sombre/clair -->
       <button id="darkModeToggle" title="Activer/Désactiver le mode sombre">🌓</button>
-
-      <!-- Bouton pour changer de langue (Anglais / Français) -->
       <button id="langToggleBtn" title="Changer de langue">Anglais</button>
     </div>
   </header>
 
   <main class="container">
-    <!-- Colonne de gauche (catégories) -->
     <nav class="sidebar" id="sidebar">
-      <!-- script.js injectera la liste des catégories + trait horizontal + "Favoris" -->
+      <!-- injection des catégories via script.js -->
     </nav>
-
-    <!-- Colonne du milieu (liste de commandes OU résultats de recherche) -->
     <section class="commands" id="commands">
       <p>Sélectionnez une catégorie pour afficher les commandes.</p>
     </section>
-
-    <!-- Colonne de droite (détails de la commande) -->
     <section class="details" id="details">
       <p>Sélectionnez une commande pour voir les détails.</p>
-      <!-- Aucun bloc de favoris ici (comme demandé) -->
     </section>
   </main>
 
   <footer>
-    <p>
-      &copy; Anis Ghaieb 2025 -
-      <a href="#" title="Lien vers les droits d'auteurs">Tous droits réservés</a>
-    </p>
+    <p>&copy; Anis Ghaieb 2025 – <a href="mentions.html">Tous droits réservés</a></p>
   </footer>
 
-  <!-- Script principal -->
   <script src="script.js"></script>
-
-  <!-- Bibliothèque pour la coloration syntaxique (Highlight.js) -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.5.0/styles/default.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/highlight.js@11.5.0/styles/default.min.css">
   <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.5.0/lib/highlight.min.js"></script>
 </body>
 </html>
