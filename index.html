@@ -10,28 +10,33 @@
     <!-- Titre à gauche -->
     <h1>AEC-2025 CCommandes Linux</h1>
 
-    <!-- Champ de recherche + icône loupe, aligné à droite -->
-    <div class="search-box">
-      <input type="text" id="searchInput" placeholder="Rechercher une commande...">
-      <button id="searchBtn" title="Rechercher">
-        <!-- Icône loupe en SVG -->
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-             fill="none" stroke="currentColor" stroke-linecap="round"
-             stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
-          <circle cx="11" cy="11" r="8"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-        </svg>
-      </button>
-    </div>
+    <!-- Conteneur à droite pour la recherche + boutons -->
+    <div class="header-right">
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="Rechercher une commande...">
+        <button id="searchBtn" title="Rechercher">
+          <!-- Icône loupe en SVG -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+               fill="none" stroke="currentColor" stroke-linecap="round"
+               stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+        </button>
+      </div>
 
-    <!-- Bouton de bascule mode sombre/clair -->
-    <button id="darkModeToggle" title="Activer/Désactiver le mode sombre">🌓</button>
+      <!-- Bouton de bascule mode sombre/clair -->
+      <button id="darkModeToggle" title="Activer/Désactiver le mode sombre">🌓</button>
+
+      <!-- Bouton pour changer de langue (Anglais / Français) -->
+      <button id="langToggleBtn" title="Changer de langue">Anglais</button>
+    </div>
   </header>
 
   <main class="container">
     <!-- Colonne de gauche (catégories) -->
     <nav class="sidebar" id="sidebar">
-      <!-- script.js injectera la liste des catégories -->
+      <!-- script.js injectera la liste des catégories + trait horizontal + "Favoris" -->
     </nav>
 
     <!-- Colonne du milieu (liste de commandes OU résultats de recherche) -->
@@ -42,6 +47,7 @@
     <!-- Colonne de droite (détails de la commande) -->
     <section class="details" id="details">
       <p>Sélectionnez une commande pour voir les détails.</p>
+      <!-- Aucun bloc de favoris ici (comme demandé) -->
     </section>
   </main>
 
@@ -54,5 +60,9 @@
 
   <!-- Script principal -->
   <script src="script.js"></script>
+
+  <!-- Bibliothèque pour la coloration syntaxique (Highlight.js) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.5.0/styles/default.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.5.0/lib/highlight.min.js"></script>
 </body>
 </html>
