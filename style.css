@@ -20,9 +20,9 @@ html, body {
 /* ------------------- */
 
 header, footer {
-  display: flex;              /* mise en page horizontale */
-  align-items: center;        /* centre verticalement */
-  justify-content: space-between; /* titre à gauche + recherche à droite */
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Titre à gauche, .header-right à droite */
   background-color: rgba(255, 255, 255, 0.8);
   padding: 1rem;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
@@ -31,6 +31,13 @@ header, footer {
 header h1 {
   margin: 0;
   color: #336699;  /* Couleur en mode clair */
+}
+
+/* Conteneur à droite pour la search-box + boutons */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* réduit l'espace entre éléments */
 }
 
 footer a {
@@ -49,7 +56,7 @@ footer a:hover {
   align-items: center;
   border: 1px solid #ccc;
   background-color: #fff;
-  border-radius: 50px;  /* arrondi style "pill" */
+  border-radius: 50px;
   padding: 0 0.5rem;
 }
 
@@ -58,8 +65,8 @@ footer a:hover {
   outline: none;
   font-size: 1rem;
   padding: 0.5rem 0.5rem;
-  width: 210px; /* ajustez comme vous voulez */
-  border-radius: 50px; /* arrondi interne */
+  width: 210px;
+  border-radius: 50px;
 }
 
 .search-box button {
@@ -70,7 +77,6 @@ footer a:hover {
   margin-left: 0.2rem;
   color: #666;
 }
-
 .search-box button:hover {
   color: #000;
 }
@@ -81,7 +87,7 @@ footer a:hover {
 .container {
   display: flex;
   flex-direction: row;
-  min-height: calc(100vh - 160px); /* ajuster selon header/footer */
+  min-height: calc(100vh - 160px);
   margin: 0 1rem;
 }
 
@@ -96,11 +102,16 @@ footer a:hover {
 .sidebar {
   width: 20%;
 }
+/* Colonne commandes */
 .commands {
-  width: 40%;
+  width: 35%;
 }
+/* Colonne détails */
 .details {
-  width: 40%;
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 /* Supprime les puces pour sidebar et commands */
@@ -159,7 +170,6 @@ code {
     border-radius: 0;
   }
 
-  /* Ajuster la search-box sur mobile */
   .search-box input {
     width: 140px;
   }
@@ -169,26 +179,21 @@ code {
 /* 6) BOUTON MODE SOMBRE (#darkModeToggle)        */
 /* ---------------------------------------------- */
 #darkModeToggle {
-  background: transparent;  
-  border: none;            
+  background: transparent;
+  border: none;
   cursor: pointer;
-  font-size: 1.2rem;       
-  margin-left: 1rem;       
-  padding: 0.2rem 0.4rem;  
-  color: #666;             
-  border-radius: 4px;      
+  font-size: 1.2rem;
+  padding: 0.2rem 0.4rem;
+  color: #666;
+  border-radius: 4px;
 }
-
 #darkModeToggle:hover {
-  background-color: rgba(0, 0, 0, 0.1); 
+  background-color: rgba(0, 0, 0, 0.1);
 }
-
-/* En mode sombre, on ajuste la couleur de l’icône */
 .dark-mode #darkModeToggle {
-  color: #ddd !important;  
+  color: #ddd !important;
   background: transparent;
 }
-
 .dark-mode #darkModeToggle:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
@@ -197,11 +202,10 @@ code {
 /* 7) MODE SOMBRE (classe .dark-mode) */
 /* -------------------------------- */
 .dark-mode {
-  background: #1a1a1a;   /* Arrière-plan foncé global */
-  color: #ddd;           /* Texte global plus clair */
+  background: #1a1a1a;
+  color: #ddd;
 }
 
-/* Header & footer en mode sombre */
 .dark-mode header,
 .dark-mode footer {
   background-color: #2c2c2c !important;
@@ -209,7 +213,6 @@ code {
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
 }
 
-/* Les sections (sidebar, commands, details) en mode sombre */
 .dark-mode .sidebar,
 .dark-mode .commands,
 .dark-mode .details {
@@ -218,41 +221,96 @@ code {
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
 }
 
-/* Barre de recherche en mode sombre */
 .dark-mode .search-box {
   background-color: #333;
   border-color: #555;
 }
-
 .dark-mode .search-box input {
   background: #333;
   color: #fff;
 }
-
-/* Bouton loupe (icône SVG) en mode sombre */
 .dark-mode .search-box button svg {
   stroke: #eee;
 }
-
-/* Les liens (footer, etc.) en mode sombre */
 .dark-mode a {
   color: #bbb;
 }
-
-/* Code blocks en mode sombre */
 .dark-mode code {
   background-color: #444;
   color: #fff;
 }
-
-/* -------------------------------- */
-/* 8) FORCER TOUT LE TEXTE EN BLANC EN MODE SOMBRE */
-/* -------------------------------- */
-/* On ré-écrase les couleurs spécifiques utilisées en mode clair */
 .dark-mode header h1,
 .dark-mode .sidebar li,
 .dark-mode .commands li,
 .dark-mode .details h2,
 .dark-mode footer a {
-  color: #fff !important;  /* Texte blanc en mode sombre */
+  color: #fff !important;
+}
+
+/* [AJOUT] Bouton langue : Anglais / Français */
+#langToggleBtn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 0.3rem 0.5rem;
+  color: #666;
+  border-radius: 4px;
+}
+#langToggleBtn:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.dark-mode #langToggleBtn {
+  color: #ddd !important;
+  background: transparent;
+}
+.dark-mode #langToggleBtn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* -------------------------------- */
+/* BOUTONS "Copier" / "Ajouter aux favoris" sous trait */
+/* -------------------------------- */
+.buttonContainer {
+  margin-top: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+}
+.buttonContainer button {
+  border: none;
+  border-radius: 4px;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  background-color: #2d5580;
+  color: #fff;
+}
+.buttonContainer button:hover {
+  background-color: #193450;
+}
+
+/* -------------------------------- */
+/* 8) Mise en évidence catégorie & commande sélectionnée */
+/* -------------------------------- */
+.selected {
+  font-weight: bold;
+  background-color: #d0e4f7; /* Couleur légèrement bleutée */
+  border-radius: 4px;
+  padding: 0.2rem;
+}
+.selectedCmd {
+  font-weight: bold;
+  background-color: #c9d8f0; /* Couleur un peu différente */
+  border-radius: 4px;
+  padding: 0.2rem;
+}
+
+/* Mode sombre pour la sélection */
+.dark-mode .selected {
+  background-color: #295d88 !important;
+  color: #fff !important;
+}
+.dark-mode .selectedCmd {
+  background-color: #2c4870 !important;
+  color: #fff !important;
 }
