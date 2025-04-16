@@ -1,3 +1,8 @@
+// script.js
+// ==========================================================
+// 1) TABLEAU CATEGORIES + COMMANDES (FR/EN intégrés)
+// ==========================================================
+// script.js
 // ==========================================================
 // 1) TABLEAU CATEGORIES + COMMANDES (FR/EN intégrés)
 // ==========================================================
@@ -8,23 +13,81 @@ const categoriesData = [
       {
         name: { fr: "ls", en: "ls" },
         description: {
-          fr: "Liste les fichiers et dossiers du répertoire courant (ou spécifié).",
-          en: "Lists files and directories in the current (or specified) directory."
+          fr: "Liste les fichiers et dossiers du répertoire courant.",
+          en: "Lists files and directories in the current directory."
         },
         example: {
-          fr: "ls -lh /home/username",
-          en: "ls -lh /home/username"
+          fr: "ls -lha --color=auto /var/log",
+          en: "ls -lha --color=auto /var/log"
+        },
+        bullets: {
+          fr: [
+            "La commande <code>ls</code> permet d’<strong>énumérer les fichiers et dossiers</strong> contenus dans un répertoire.",
+            "Elle est très utilisée pour <strong>visualiser rapidement le contenu d’un dossier</strong>."
+          ],
+          en: [
+            "The <code>ls</code> command <strong>lists files and directories</strong> in a folder.",
+            "It is widely used for a <strong>quick look</strong> at a directory’s contents."
+          ]
+        },
+        options: {
+          fr: [
+            { opt: "-l", desc: "liste détaillée (droits, propriétaire, taille…)" },
+            { opt: "-a", desc: "affiche tous les fichiers, y compris cachés" },
+            { opt: "-h", desc: "tailles lisibles (Ko, Mo…)" }
+          ],
+          en: [
+            { opt: "-l", desc: "long listing (permissions, owner, size…)" },
+            { opt: "-a", desc: "show hidden files" },
+            { opt: "-h", desc: "human‑readable sizes" }
+          ]
+        },
+        extraExample: {
+          fr: "ls -lha --color=auto /var/log",
+          en: "ls -lha --color=auto /var/log"
+        },
+        recap: {
+          fr: "🔁 Cette commande affiche tous les fichiers, même cachés, dans un format détaillé et lisible.",
+          en: "🔁 This command lists every file, including hidden ones, in a detailed, readable format."
         }
       },
       {
         name: { fr: "ls -l", en: "ls -l" },
         description: {
-          fr: "Liste détaillée (droits, propriétaire, taille...).",
-          en: "Displays detailed info (permissions, owner, size...)."
+          fr: "Liste les fichiers et dossiers sous forme de liste détaillée.",
+          en: "Displays files and directories in a detailed list format."
         },
         example: {
-          fr: "ls -l --color=auto /var/log",
-          en: "ls -l --color=auto /var/log"
+          fr: "ls -lha --color=auto /var/log",
+          en: "ls -lha --color=auto /var/log"
+        },
+        bullets: {
+          fr: [
+            "Affiche le contenu d’un répertoire avec <strong>plus d’informations</strong> (droits, taille, date).",
+            "Pratique pour vérifier rapidement les <strong>droits d’accès</strong> et la taille des fichiers."
+          ],
+          en: [
+            "Shows directory contents with <strong>detailed information</strong> (permissions, size, date).",
+            "Handy for quickly checking <strong>permissions</strong> and file sizes."
+          ]
+        },
+        options: {
+          fr: [
+            { opt: "-h", desc: "tailles lisibles (Ko, Mo, Go)" },
+            { opt: "-a", desc: "inclut les fichiers cachés" }
+          ],
+          en: [
+            { opt: "-h", desc: "human‑readable sizes (KB, MB, GB)" },
+            { opt: "-a", desc: "include hidden files" }
+          ]
+        },
+        extraExample: {
+          fr: "ls -lha --color=auto /var/log",
+          en: "ls -lha --color=auto /var/log"
+        },
+        recap: {
+          fr: "📂 Cette commande détaille chaque fichier avec ses droits, son propriétaire et une taille lisible.",
+          en: "📂 This command details each file with permissions, owner, and a human‑readable size."
         }
       },
       {
@@ -34,151 +97,75 @@ const categoriesData = [
           en: "Displays the content of a text file."
         },
         example: {
-          fr: "cat /var/log/syslog",
-          en: "cat /var/log/syslog"
+          fr: "cat -n /var/log/syslog | less",
+          en: "cat -n /var/log/syslog | less"
+        },
+        bullets: {
+          fr: [
+            "<code>cat</code> concatène et affiche un ou plusieurs fichiers.",
+            "Pratique pour examiner rapidement un fichier ou fusionner des fichiers."
+          ],
+          en: [
+            "<code>cat</code> concatenates and displays one or more files.",
+            "Useful for quickly inspecting a file or merging files."
+          ]
+        },
+        options: {
+          fr: [
+            { opt: "-n", desc: "numérote toutes les lignes" },
+            { opt: "-b", desc: "numérote uniquement les lignes non vides" }
+          ],
+          en: [
+            { opt: "-n", desc: "number all output lines" },
+            { opt: "-b", desc: "number non‑blank lines" }
+          ]
+        },
+        extraExample: {
+          fr: "cat -n /var/log/syslog | less",
+          en: "cat -n /var/log/syslog | less"
+        },
+        recap: {
+          fr: "📄 Cette commande affiche un fichier avec numérotation, idéale pour repérer les lignes.",
+          en: "📄 This command shows a file with line numbers, great for locating lines."
         }
       },
       {
         name: { fr: "cut -d: -f1 /etc/passwd", en: "cut -d: -f1 /etc/passwd" },
         description: {
-          fr: "Extrait le 1er champ (séparateur :) du fichier passwd.",
-          en: "Extracts the first field (':' separator) from /etc/passwd."
+          fr: "Extrait le premier champ de chaque ligne du fichier /etc/passwd.",
+          en: "Extracts the first field from each line of the /etc/passwd file."
         },
         example: {
           fr: "cut -d: -f1 /etc/passwd",
           en: "cut -d: -f1 /etc/passwd"
-        }
-      },
-      {
-        name: { fr: "cut -d: -f1 /etc/group", en: "cut -d: -f1 /etc/group" },
-        description: {
-          fr: "Extrait le 1er champ du fichier group.",
-          en: "Extracts the first field from /etc/group."
         },
-        example: {
+        bullets: {
+          fr: [
+            "La commande <code>cut</code> sert à extraire des champs d’un fichier selon un délimiteur.",
+            "Parfait pour lister uniquement les noms d’utilisateurs ou de groupes."
+          ],
+          en: [
+            "The <code>cut</code> command extracts fields from a file using a delimiter.",
+            "Great for listing only usernames or groups."
+          ]
+        },
+        options: {
+          fr: [
+            { opt: "-d:", desc: "définit ':' comme séparateur" },
+            { opt: "-f1", desc: "sélectionne le premier champ" }
+          ],
+          en: [
+            { opt: "-d:", desc: "sets ':' as delimiter" },
+            { opt: "-f1", desc: "selects the first field" }
+          ]
+        },
+        extraExample: {
           fr: "cut -d: -f1 /etc/group",
           en: "cut -d: -f1 /etc/group"
-        }
-      },
-      {
-        name: { fr: "whoami", en: "whoami" },
-        description: {
-          fr: "Affiche l'utilisateur actuellement connecté.",
-          en: "Shows the currently logged-in user."
         },
-        example: {
-          fr: "whoami",
-          en: "whoami"
-        }
-      },
-      {
-        name: { fr: "echo \"Hello World\"", en: "echo \"Hello World\"" },
-        description: {
-          fr: "Affiche un texte ou la valeur d’une variable à l’écran.",
-          en: "Displays text or a variable’s value on screen."
-        },
-        example: {
-          fr: "echo $PATH",
-          en: "echo $PATH"
-        }
-      },
-      {
-        name: { fr: "head fichier.txt", en: "head file.txt" },
-        description: {
-          fr: "Affiche les premières lignes d’un fichier (10 par défaut).",
-          en: "Shows the first lines of a file (10 by default)."
-        },
-        example: {
-          fr: "head -n 5 /var/log/syslog",
-          en: "head -n 5 /var/log/syslog"
-        }
-      },
-      {
-        name: { fr: "tail fichier.txt", en: "tail file.txt" },
-        description: {
-          fr: "Affiche les dernières lignes d’un fichier (10 par défaut).",
-          en: "Shows the last lines of a file (10 by default)."
-        },
-        example: {
-          fr: "tail -f /var/log/syslog",
-          en: "tail -f /var/log/syslog"
-        }
-      },
-      {
-        name: { fr: "less", en: "less" },
-        description: {
-          fr: "Affiche un fichier page par page (plus flexible que more).",
-          en: "Displays a file page by page (more flexible than 'more')."
-        },
-        example: {
-          fr: "less /etc/services",
-          en: "less /etc/services"
-        }
-      },
-      {
-        name: { fr: "more", en: "more" },
-        description: {
-          fr: "Affiche un fichier page par page (plus basique que less).",
-          en: "Displays a file page by page (simpler than 'less')."
-        },
-        example: {
-          fr: "more /etc/protocols",
-          en: "more /etc/protocols"
-        }
-      },
-      {
-        name: { fr: "pwd", en: "pwd" },
-        description: {
-          fr: "Affiche le chemin complet du répertoire courant.",
-          en: "Prints the current directory path."
-        },
-        example: {
-          fr: "pwd",
-          en: "pwd"
-        }
-      },
-      {
-        name: { fr: "man commande", en: "man command" },
-        description: {
-          fr: "Affiche le manuel d’une commande (options, usage).",
-          en: "Displays the manual for a command (options, usage)."
-        },
-        example: {
-          fr: "man ls",
-          en: "man ls"
-        }
-      },
-      {
-        name: { fr: "tree chemin", en: "tree path" },
-        description: {
-          fr: "Affiche l’arborescence d’un répertoire.",
-          en: "Displays a directory tree structure."
-        },
-        example: {
-          fr: "tree /home/projets",
-          en: "tree /home/projets"
-        }
-      },
-      {
-        name: { fr: "id", en: "id" },
-        description: {
-          fr: "Affiche l'uid, gid et groupes de l'utilisateur courant.",
-          en: "Shows the current user's uid, gid, and groups."
-        },
-        example: {
-          fr: "id",
-          en: "id"
-        }
-      },
-      {
-        name: { fr: "groups", en: "groups" },
-        description: {
-          fr: "Montre les groupes auxquels appartient l'utilisateur.",
-          en: "Shows the groups of the current user."
-        },
-        example: {
-          fr: "groups",
-          en: "groups"
+        recap: {
+          fr: "✂️ Cette commande filtre un fichier système pour n’afficher que le champ désiré.",
+          en: "✂️ This command filters a system file to show only the desired field."
         }
       }
     ]
@@ -187,102 +174,120 @@ const categoriesData = [
     name: { fr: "Création", en: "Creation" },
     commands: [
       {
+        name: { fr: "mkdir répertoire", en: "mkdir directory" },
+        description: {
+          fr: "Crée un nouveau répertoire dans le système de fichiers.",
+          en: "Creates a new directory in the filesystem."
+        },
+        example: {
+          fr: "mkdir mon_dossier",
+          en: "mkdir my_folder"
+        },
+        bullets: {
+          fr: [
+            "La commande <code>mkdir</code> sert à <strong>créer des répertoires</strong>.",
+            "Indispensable pour organiser les fichiers dans des dossiers dédiés."
+          ],
+          en: [
+            "The <code>mkdir</code> command is used to <strong>create directories</strong>.",
+            "Essential for organizing files into dedicated folders."
+          ]
+        },
+        options: {
+          fr: [
+            { opt: "-p", desc: "crée également les répertoires parents manquants" },
+            { opt: "-v", desc: "affiche un message pour chaque répertoire créé" }
+          ],
+          en: [
+            { opt: "-p", desc: "create parent directories as needed" },
+            { opt: "-v", desc: "print a message for each created directory" }
+          ]
+        },
+        extraExample: {
+          fr: "mkdir -p /tmp/a/b/c",
+          en: "mkdir -p /tmp/a/b/c"
+        },
+        recap: {
+          fr: "📂 Crée un répertoire, avec l’option -p pour créer plusieurs niveaux.",
+          en: "📂 Creates a directory, with -p to create nested directories."
+        }
+      },
+      {
         name: { fr: "touch fichier.txt", en: "touch file.txt" },
         description: {
-          fr: "Crée un nouveau fichier vide ou met à jour sa date.",
-          en: "Creates a new empty file or updates its timestamp."
+          fr: "Crée un fichier vide ou met à jour la date de dernier accès d’un fichier existant.",
+          en: "Creates an empty file or updates access and modification timestamps of an existing file."
         },
         example: {
-          fr: "touch rapport.txt",
-          en: "touch report.txt"
+          fr: "touch nouveau_fichier.txt",
+          en: "touch new_file.txt"
+        },
+        bullets: {
+          fr: [
+            "La commande <code>touch</code> crée un fichier vide si celui-ci n’existe pas.",
+            "Sinon, elle met à jour les horodatages du fichier."
+          ],
+          en: [
+            "The <code>touch</code> command creates an empty file if it does not exist.",
+            "Otherwise, it updates the file’s timestamps."
+          ]
+        },
+        options: {
+          fr: [
+            { opt: "-c", desc: "ne crée pas de fichier s’il n’existe pas" },
+            { opt: "-t", desc: "spécifie un horodatage personnalisé" }
+          ],
+          en: [
+            { opt: "-c", desc: "do not create file if it does not exist" },
+            { opt: "-t", desc: "use specified time instead of current time" }
+          ]
+        },
+        extraExample: {
+          fr: "touch -t 202501011200 mon_fichier.txt",
+          en: "touch -t 202501011200 my_file.txt"
+        },
+        recap: {
+          fr: "📄 Crée un fichier vide ou met à jour ses horodatages.",
+          en: "📄 Creates an empty file or updates its timestamps."
         }
       },
       {
-        name: { fr: "mkdir mon_dossier", en: "mkdir my_folder" },
+        name: { fr: "sudo useradd", en: "sudo useradd" },
         description: {
-          fr: "Crée un nouveau dossier (répertoire).",
-          en: "Creates a new directory (folder)."
+          fr: "Ajoute un nouvel utilisateur au système.",
+          en: "Adds a new user to the system."
         },
         example: {
-          fr: "mkdir /home/username/Documents/Projets",
-          en: "mkdir /home/username/Documents/Projects"
-        }
-      },
-      {
-        name: { fr: "sudo useradd nom_utilisateur", en: "sudo useradd username" },
-        description: {
-          fr: "Crée un nouvel utilisateur (sans /home par défaut).",
-          en: "Creates a new user (no /home by default)."
+          fr: "sudo useradd alice",
+          en: "sudo useradd alice"
         },
-        example: {
-          fr: "sudo useradd --create-home alice",
-          en: "sudo useradd --create-home alice"
-        }
-      },
-      {
-        name: { fr: "groupadd nom_du_groupe", en: "groupadd groupname" },
-        description: {
-          fr: "Crée un nouveau groupe (droits admin).",
-          en: "Creates a new group (admin rights)."
+        bullets: {
+          fr: [
+            "La commande <code>useradd</code> crée un compte utilisateur.",
+            "Permet de paramétrer le dossier personnel et le shell."
+          ],
+          en: [
+            "The <code>useradd</code> command creates a user account.",
+            "Allows setting up the home directory and the shell."
+          ]
         },
-        example: {
-          fr: "sudo groupadd developpeurs",
-          en: "sudo groupadd developers"
-        }
-      },
-      {
-        name: { fr: "sudo adduser nom_utilisateur", en: "sudo adduser username" },
-        description: {
-          fr: "Crée un nouvel utilisateur via une interface plus conviviale.",
-          en: "Creates a new user via a more user-friendly interface."
+        options: {
+          fr: [
+            { opt: "-m", desc: "crée le répertoire personnel" },
+            { opt: "-s", desc: "définit le shell de l’utilisateur" }
+          ],
+          en: [
+            { opt: "-m", desc: "create home directory" },
+            { opt: "-s", desc: "specify user’s login shell" }
+          ]
         },
-        example: {
-          fr: "sudo adduser jean",
-          en: "sudo adduser john"
-        }
-      },
-      {
-        name: { fr: "ln -s source cible", en: "ln -s source target" },
-        description: {
-          fr: "Crée un lien symbolique (raccourci) vers fichier/dossier.",
-          en: "Creates a symbolic link (shortcut) to a file/folder."
+        extraExample: {
+          fr: "sudo useradd -m -s /bin/bash bob",
+          en: "sudo useradd -m -s /bin/bash bob"
         },
-        example: {
-          fr: "ln -s /etc/nginx/nginx.conf ~/nginx.conf",
-          en: "ln -s /etc/nginx/nginx.conf ~/nginx.conf"
-        }
-      },
-      {
-        name: { fr: "parted /dev/sda", en: "parted /dev/sda" },
-        description: {
-          fr: "Ouvre l’outil parted pour créer/modifier des partitions.",
-          en: "Opens parted to create/modify partitions."
-        },
-        example: {
-          fr: "sudo parted /dev/sda",
-          en: "sudo parted /dev/sda"
-        }
-      },
-      {
-        name: { fr: "mkfs -t ext4 /dev/sda1", en: "mkfs -t ext4 /dev/sda1" },
-        description: {
-          fr: "Formate la partition /dev/sda1 en ext4.",
-          en: "Formats the /dev/sda1 partition as ext4."
-        },
-        example: {
-          fr: "mkfs -t ext4 /dev/sdb2",
-          en: "mkfs -t ext4 /dev/sdb2"
-        }
-      },
-      {
-        name: { fr: "sudo apt install paquet", en: "sudo apt install package" },
-        description: {
-          fr: "Installe un paquet (ex: tree) depuis les dépôts (apt).",
-          en: "Installs a package (e.g. tree) from apt repositories."
-        },
-        example: {
-          fr: "sudo apt install tree",
-          en: "sudo apt install tree"
+        recap: {
+          fr: "👤 Crée un utilisateur avec répertoire perso et shell spécifié.",
+          en: "👤 Creates a user with home directory and specified shell."
         }
       }
     ]
@@ -293,100 +298,77 @@ const categoriesData = [
       {
         name: { fr: "rm fichier.txt", en: "rm file.txt" },
         description: {
-          fr: "Supprime un fichier.",
-          en: "Removes a file."
+          fr: "Supprime des fichiers ou des répertoires.",
+          en: "Removes files or directories."
         },
         example: {
-          fr: "rm rapport.txt",
-          en: "rm report.txt"
+          fr: "rm fichier.txt",
+          en: "rm file.txt"
+        },
+        bullets: {
+          fr: [
+            "La commande <code>rm</code> supprime définitivement des fichiers.",
+            "Attention : sans option, elle ne demande pas de confirmation."
+          ],
+          en: [
+            "The <code>rm</code> command permanently deletes files.",
+            "Be careful: by default it does not prompt for confirmation."
+          ]
+        },
+        options: {
+          fr: [
+            { opt: "-r", desc: "supprime récursivement dossiers et fichiers" },
+            { opt: "-i", desc: "demande confirmation avant chaque suppression" }
+          ],
+          en: [
+            { opt: "-r", desc: "remove directories and their contents recursively" },
+            { opt: "-i", desc: "prompt before every removal" }
+          ]
+        },
+        extraExample: {
+          fr: "rm -ri dossier_backup",
+          en: "rm -ri backup_folder"
+        },
+        recap: {
+          fr: "🗑️ Supprime récursivement avec confirmation.",
+          en: "🗑️ Recursively removes with confirmation."
         }
       },
       {
-        name: { fr: "rm -r mon_dossier", en: "rm -r my_folder" },
+        name: { fr: "rmdir répertoire", en: "rmdir directory" },
         description: {
-          fr: "Supprime un dossier et son contenu (récursif).",
-          en: "Removes a directory and its content (recursive)."
+          fr: "Supprime un répertoire vide.",
+          en: "Removes an empty directory."
         },
         example: {
-          fr: "rm -r /home/username/Documents/Projets",
-          en: "rm -r /home/username/Documents/Projects"
-        }
-      },
-      {
-        name: { fr: "rmdir dossier_vide", en: "rmdir empty_folder" },
-        description: {
-          fr: "Supprime un répertoire vide uniquement.",
-          en: "Removes an empty directory only."
+          fr: "rmdir mon_dossier",
+          en: "rmdir my_folder"
         },
-        example: {
-          fr: "rmdir monDossierVide",
-          en: "rmdir myEmptyFolder"
-        }
-      },
-      {
-        name: { fr: "sudo userdel nom_utilisateur", en: "sudo userdel username" },
-        description: {
-          fr: "Supprime un utilisateur (droits admin).",
-          en: "Deletes a user (admin rights)."
+        bullets: {
+          fr: [
+            "La commande <code>rmdir</code> enlève un dossier vide.",
+            "Elle échoue si le répertoire contient des fichiers."
+          ],
+          en: [
+            "The <code>rmdir</code> command removes an empty directory.",
+            "It fails if the directory is not empty."
+          ]
         },
-        example: {
-          fr: "sudo userdel alice",
-          en: "sudo userdel alice"
-        }
-      },
-      {
-        name: { fr: "groupdel nom_du_groupe", en: "groupdel groupname" },
-        description: {
-          fr: "Supprime un groupe (droits admin).",
-          en: "Deletes a group (admin rights)."
+        options: {
+          fr: [
+            { opt: "-p", desc: "supprime les répertoires parents s’ils deviennent vides" }
+          ],
+          en: [
+            { opt: "-p", desc: "remove parent directories if they become empty" }
+          ]
         },
-        example: {
-          fr: "sudo groupdel developpeurs",
-          en: "sudo groupdel developers"
-        }
-      },
-      {
-        name: { fr: "rm -f fichier.txt", en: "rm -f file.txt" },
-        description: {
-          fr: "Force la suppression d’un fichier sans confirmation.",
-          en: "Forces file deletion without confirmation."
+        extraExample: {
+          fr: "rmdir -p a/b/c",
+          en: "rmdir -p a/b/c"
         },
-        example: {
-          fr: "rm -f importantFile.txt",
-          en: "rm -f importantFile.txt"
-        }
-      },
-      {
-        name: { fr: "shred fichier.txt", en: "shred file.txt" },
-        description: {
-          fr: "Écrase un fichier plusieurs fois puis le supprime (sécurité).",
-          en: "Overwrites a file multiple times, then removes it (security)."
-        },
-        example: {
-          fr: "shred -u -n 3 secret.txt",
-          en: "shred -u -n 3 secret.txt"
-        }
-      },
-      {
-        name: { fr: "find /chemin -name \"*.tmp\" -delete", en: "find /path -name \"*.tmp\" -delete" },
-        description: {
-          fr: "Trouve et supprime les fichiers correspondant au motif.",
-          en: "Finds and deletes files matching the pattern."
-        },
-        example: {
-          fr: "find /home/user -name '*.bak' -delete",
-          en: "find /home/user -name '*.bak' -delete"
-        }
-      },
-      {
-        name: { fr: "umount chemin_ou_device", en: "umount path_or_device" },
-        description: {
-          fr: "Démonte un système de fichiers.",
-          en: "Unmounts a filesystem."
-        },
-        example: {
-          fr: "sudo umount /mnt/usb",
-          en: "sudo umount /mnt/usb"
+        recap: {
+          fr: "🗑️ Supprime un dossier vide et ses parents s’ils sont vides.",
+          en: "🗑️ Removes an empty directory and its empty parent directories."
         }
       }
     ]
@@ -395,124 +377,81 @@ const categoriesData = [
     name: { fr: "Modification", en: "Modification" },
     commands: [
       {
-        name: { fr: "nano fichier.txt", en: "nano file.txt" },
+        name: { fr: "chmod permissions", en: "chmod permissions" },
         description: {
-          fr: "Édite un fichier texte (interface terminal).",
-          en: "Edits a text file (terminal interface)."
+          fr: "Change les permissions d’un fichier ou d’un répertoire.",
+          en: "Changes the permissions of a file or directory."
         },
         example: {
-          fr: "nano /etc/hosts",
-          en: "nano /etc/hosts"
+          fr: "chmod 755 script.sh",
+          en: "chmod 755 script.sh"
+        },
+        bullets: {
+          fr: [
+            "La commande <code>chmod</code> modifie les droits d’accès.",
+            "Utilisée pour rendre un script exécutable."
+          ],
+          en: [
+            "The <code>chmod</code> command modifies access permissions.",
+            "Used to make a script executable."
+          ]
+        },
+        options: {
+          fr: [
+            { opt: "-R", desc: "applique récursivement le changement" },
+            { opt: "--reference=ref", desc: "copie les permissions d’un autre fichier" }
+          ],
+          en: [
+            { opt: "-R", desc: "apply changes recursively" },
+            { opt: "--reference=ref", desc: "use permissions of reference file" }
+          ]
+        },
+        extraExample: {
+          fr: "chmod -R 644 /var/www/html",
+          en: "chmod -R 644 /var/www/html"
+        },
+        recap: {
+          fr: "🔒 Définit précisément les permissions pour sécuriser l’accès.",
+          en: "🔒 Precisely sets permissions to secure access."
         }
       },
       {
-        name: { fr: "chmod 755 fichier.txt", en: "chmod 755 file.txt" },
+        name: { fr: "sudo chown user:group", en: "sudo chown user:group" },
         description: {
-          fr: "Change les permissions (rwx) d’un fichier/dossier.",
-          en: "Changes the (rwx) permissions of a file/folder."
+          fr: "Modifie le propriétaire et/ou le groupe d’un fichier ou répertoire.",
+          en: "Changes the owner and/or group of a file or directory."
         },
         example: {
-          fr: "chmod 755 monScript.sh",
-          en: "chmod 755 myScript.sh"
-        }
-      },
-      {
-        name: { fr: "chown user:group fichier.txt", en: "chown user:group file.txt" },
-        description: {
-          fr: "Change le propriétaire et le groupe d’un fichier.",
-          en: "Changes the owner and group of a file."
+          fr: "sudo chown alice:users fichier.txt",
+          en: "sudo chown alice:users file.txt"
         },
-        example: {
-          fr: "sudo chown alice:dev rapport.txt",
-          en: "sudo chown alice:dev report.txt"
-        }
-      },
-      {
-        name: { fr: "passwd nom_utilisateur", en: "passwd username" },
-        description: {
-          fr: "Change ou définit le mot de passe d’un utilisateur.",
-          en: "Changes or sets a user password."
+        bullets: {
+          fr: [
+            "La commande <code>chown</code> change le propriétaire et le groupe.",
+            "Nécessite souvent les droits superutilisateur."
+          ],
+          en: [
+            "The <code>chown</code> command changes owner and group.",
+            "Often requires superuser privileges."
+          ]
         },
-        example: {
-          fr: "sudo passwd alice",
-          en: "sudo passwd alice"
-        }
-      },
-      {
-        name: { fr: "usermod -aG groupe utilisateur", en: "usermod -aG group user" },
-        description: {
-          fr: "Ajoute un utilisateur à un groupe (sans enlever les autres).",
-          en: "Adds a user to a group (without removing others)."
+        options: {
+          fr: [
+            { opt: "-R", desc: "applique récursivement" },
+            { opt: "--from=old", desc: "change seulement si propriétaire/groupe actuel correspond" }
+          ],
+          en: [
+            { opt: "-R", desc: "apply recursively" },
+            { opt: "--from=old", desc: "only change if current owner/group match" }
+          ]
         },
-        example: {
-          fr: "sudo usermod -aG sudo alice",
-          en: "sudo usermod -aG sudo alice"
-        }
-      },
-      {
-        name: { fr: "groupmod -n nouveau_nom ancien_nom", en: "groupmod -n new_name old_name" },
-        description: {
-          fr: "Renomme un groupe existant (droits admin).",
-          en: "Renames an existing group (admin rights)."
+        extraExample: {
+          fr: "sudo chown -R www-data:www-data /var/www/html",
+          en: "sudo chown -R www-data:www-data /var/www/html"
         },
-        example: {
-          fr: "sudo groupmod -n devSenior developpeurs",
-          en: "sudo groupmod -n devSenior developers"
-        }
-      },
-      {
-        name: { fr: "crontab -e", en: "crontab -e" },
-        description: {
-          fr: "Modifie la table de cron (tâches planifiées) de l’utilisateur.",
-          en: "Modifies the user's cron table (scheduled tasks)."
-        },
-        example: {
-          fr: "crontab -e",
-          en: "crontab -e"
-        }
-      },
-      {
-        name: { fr: "mount device repertoire", en: "mount device directory" },
-        description: {
-          fr: "Monte une partition ou un device sur un répertoire.",
-          en: "Mounts a partition or device to a directory."
-        },
-        example: {
-          fr: "sudo mount /dev/sdb1 /mnt/usb",
-          en: "sudo mount /dev/sdb1 /mnt/usb"
-        }
-      },
-      {
-        name: { fr: "fsck device", en: "fsck device" },
-        description: {
-          fr: "Vérifie/répare la cohérence d’un système de fichiers.",
-          en: "Checks/repairs filesystem consistency."
-        },
-        example: {
-          fr: "sudo fsck /dev/sda1",
-          en: "sudo fsck /dev/sda1"
-        }
-      },
-      {
-        name: { fr: "sync", en: "sync" },
-        description: {
-          fr: "Force l’écriture des données en attente sur le disque.",
-          en: "Forces unwritten data to be written to disk."
-        },
-        example: {
-          fr: "sync",
-          en: "sync"
-        }
-      },
-      {
-        name: { fr: "rename 's/ancien/nouveau/' *.txt", en: "rename 's/old/new/' *.txt" },
-        description: {
-          fr: "Renomme par substitution tous les fichiers correspondant au motif.",
-          en: "Renames by pattern substitution all matching files."
-        },
-        example: {
-          fr: "rename 's/v1/v2/' *.txt",
-          en: "rename 's/v1/v2/' *.txt"
+        recap: {
+          fr: "👥 Permet de transférer la propriété d’un fichier ou dossier.",
+          en: "👥 Allows transferring file or directory ownership."
         }
       }
     ]
@@ -521,69 +460,42 @@ const categoriesData = [
     name: { fr: "Copie", en: "Copy" },
     commands: [
       {
-        name: { fr: "cp fichier1 fichier2", en: "cp file1 file2" },
+        name: { fr: "cp source destination", en: "cp source destination" },
         description: {
-          fr: "Copie un fichier vers un autre fichier ou dossier.",
-          en: "Copies a file to another file or folder."
+          fr: "Copie des fichiers ou des répertoires.",
+          en: "Copies files or directories."
         },
         example: {
-          fr: "cp /etc/hosts ~/hosts_backup",
-          en: "cp /etc/hosts ~/hosts_backup"
-        }
-      },
-      {
-        name: { fr: "cp -r dossier1 dossier2", en: "cp -r folder1 folder2" },
-        description: {
-          fr: "Copie tout le contenu d’un dossier (récursivement).",
-          en: "Copies all contents of a folder recursively."
+          fr: "cp source.txt destination.txt",
+          en: "cp source.txt destination.txt"
         },
-        example: {
-          fr: "cp -r /var/www/html /var/www/html_backup",
-          en: "cp -r /var/www/html /var/www/html_backup"
-        }
-      },
-      {
-        name: { fr: "scp fichier user@hote:chemin", en: "scp file user@host:path" },
-        description: {
-          fr: "Copie sécurisée (SSH) d’un fichier vers/depuis une machine distante.",
-          en: "Secure copy (SSH) of a file to/from a remote machine."
+        bullets: {
+          fr: [
+            "La commande <code>cp</code> duplique des fichiers.",
+            "Pratique pour sauvegarder ou cloner du contenu."
+          ],
+          en: [
+            "The <code>cp</code> command duplicates files.",
+            "Useful for backing up or cloning content."
+          ]
         },
-        example: {
-          fr: "scp index.html user@192.168.1.10:/home/user/",
-          en: "scp index.html user@192.168.1.10:/home/user/"
-        }
-      },
-      {
-        name: { fr: "rsync -avz source destination", en: "rsync -avz source destination" },
-        description: {
-          fr: "Synchronise fichiers/dossiers (local ou distant, incrémental).",
-          en: "Synchronizes files/folders (local or remote, incremental)."
+        options: {
+          fr: [
+            { opt: "-r", desc: "copie récursivement dossiers et fichiers" },
+            { opt: "-i", desc: "demande confirmation avant écrasement" }
+          ],
+          en: [
+            { opt: "-r", desc: "copy directories recursively" },
+            { opt: "-i", desc: "prompt before overwrite" }
+          ]
         },
-        example: {
-          fr: "rsync -avz /home/user/docs/ user@192.168.1.10:/backup/docs/",
-          en: "rsync -avz /home/user/docs/ user@192.168.1.10:/backup/docs/"
-        }
-      },
-      {
-        name: { fr: "install -c fichier destination", en: "install -c file destination" },
-        description: {
-          fr: "Copie un fichier en réglant les permissions.",
-          en: "Copies a file and sets permissions."
+        extraExample: {
+          fr: "cp -ri dossier1/ dossier2/",
+          en: "cp -ri folder1/ folder2/"
         },
-        example: {
-          fr: "install -m 755 monScript.sh /usr/local/bin/",
-          en: "install -m 755 myScript.sh /usr/local/bin/"
-        }
-      },
-      {
-        name: { fr: "dd if=source of=dest", en: "dd if=source of=dest" },
-        description: {
-          fr: "Copie bloc à bloc (image disque, clonage...).",
-          en: "Copies block by block (disk image, cloning...)."
-        },
-        example: {
-          fr: "sudo dd if=/dev/sdb of=/home/user/backup.img bs=4M",
-          en: "sudo dd if=/dev/sdb of=/home/user/backup.img bs=4M"
+        recap: {
+          fr: "📋 Duplique fichiers et dossiers avec confirmation si nécessaire.",
+          en: "📋 Duplicates files and folders with confirmation when needed."
         }
       }
     ]
@@ -592,43 +504,54 @@ const categoriesData = [
     name: { fr: "Déplacement", en: "Move" },
     commands: [
       {
-        name: { fr: "mv fichier.txt dossier/", en: "mv file.txt folder/" },
+        name: { fr: "mv source cible", en: "mv source target" },
         description: {
-          fr: "Déplace un fichier vers un autre répertoire.",
-          en: "Moves a file to another directory."
+          fr: "Déplace ou renomme des fichiers ou répertoires.",
+          en: "Moves or renames files or directories."
         },
         example: {
-          fr: "mv rapport.txt /home/username/Documents/",
-          en: "mv report.txt /home/username/Documents/"
-        }
-      },
-      {
-        name: { fr: "mv ancien.txt nouveau.txt", en: "mv old.txt new.txt" },
-        description: {
-          fr: "Renomme un fichier ou un dossier (même syntaxe).",
-          en: "Renames a file or folder (same syntax)."
+          fr: "mv ancien_nom nouveau_nom",
+          en: "mv old_name new_name"
         },
-        example: {
-          fr: "mv cours_v1.pdf cours_final.pdf",
-          en: "mv course_v1.pdf course_final.pdf"
-        }
-      },
-      {
-        name: { fr: "cd repertoire", en: "cd directory" },
-        description: {
-          fr: "Change de répertoire courant (déplacement logique).",
-          en: "Changes the current directory."
+        bullets: {
+          fr: [
+            "La commande <code>mv</code> déplace un fichier vers un autre emplacement.",
+            "Elle permet aussi de renommer un fichier."
+          ],
+          en: [
+            "The <code>mv</code> command moves a file to a new location.",
+            "It can also rename a file."
+          ]
         },
-        example: {
-          fr: "cd /home/username/Documents",
-          en: "cd /home/username/Documents"
+        options: {
+          fr: [
+            { opt: "-i", desc: "demande confirmation avant écrasement" },
+            { opt: "-v", desc: "affiche les fichiers déplacés" }
+          ],
+          en: [
+            { opt: "-i", desc: "prompt before overwrite" },
+            { opt: "-v", desc: "show files being moved" }
+          ]
+        },
+        extraExample: {
+          fr: "mv -v fichier.txt /tmp/",
+          en: "mv -v file.txt /tmp/"
+        },
+        recap: {
+          fr: "🚚 Déplace ou renomme facilement des fichiers et dossiers.",
+          en: "🚚 Easily moves or renames files and folders."
         }
       }
     ]
   }
 ];
 
-// [AJOUT] TEXTES D'INTERFACE
+// [Rest of your interaction logic unchanged…]
+// … (buildSidebar, displayCommands, displayCommandDetails, search, favorites, etc.)
+// Ces fonctions continueront de fonctionner avec les nouvelles catégories.
+
+
+// Textes d'interface
 const uiTexts = {
   fr: {
     selectCategory: "Sélectionnez une catégorie pour afficher les commandes.",
@@ -648,13 +571,12 @@ const uiTexts = {
   }
 };
 
-// ==========================================================
-// 2) LOGIQUE D'INTERACTION
-// ==========================================================
-
 let currentLanguage = localStorage.getItem("lang") || "fr";
+let selectedCatIndex = null;
+let selectedCmdIndex = null;
 
 window.addEventListener("DOMContentLoaded", () => {
+  // Éléments globaux
   const sidebar = document.getElementById("sidebar");
   const commandsSection = document.getElementById("commands");
   const detailsSection = document.getElementById("details");
@@ -663,433 +585,215 @@ window.addEventListener("DOMContentLoaded", () => {
   const darkModeToggle = document.getElementById("darkModeToggle");
   const langToggleBtn = document.getElementById("langToggleBtn");
 
-  // Variables pour colorer la sélection
-  let selectedCatIndex = null;
-  let selectedCmdIndex = null;
-
-  // 1) Bouton langue : si c'est FR, on affiche "Anglais"; si EN, "Français"
+  // Initialisation
   setLangButtonText();
+  updateUITexts();
+  buildSidebar();
+  commandsSection.innerHTML = `<p>${uiTexts[currentLanguage].selectCategory}</p>`;
+  detailsSection.innerHTML = `<p>${uiTexts[currentLanguage].selectCommand}</p>`;
+
+  // Événements
   langToggleBtn.addEventListener("click", () => {
-    currentLanguage = (currentLanguage === "fr") ? "en" : "fr";
+    currentLanguage = currentLanguage === "fr" ? "en" : "fr";
     localStorage.setItem("lang", currentLanguage);
     setLangButtonText();
     updateUITexts();
     buildSidebar();
     commandsSection.innerHTML = `<p>${uiTexts[currentLanguage].selectCategory}</p>`;
     detailsSection.innerHTML = `<p>${uiTexts[currentLanguage].selectCommand}</p>`;
-    searchInput.placeholder = uiTexts[currentLanguage].placeholderSearch;
-    selectedCatIndex = null; // on réinitialise la sélection
-    selectedCmdIndex = null;
+    selectedCatIndex = selectedCmdIndex = null;
   });
-
-  function setLangButtonText() {
-    if (currentLanguage === "fr") {
-      langToggleBtn.textContent = "Anglais";
-    } else {
-      langToggleBtn.textContent = "Français";
-    }
-  }
-
-  // 2) Recherche + mode sombre
-  searchBtn.addEventListener("click", handleSearch);
-  searchInput.addEventListener("input", handleSearch);
-
   darkModeToggle.addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
   });
+  searchBtn.addEventListener("click", handleSearch);
+  searchInput.addEventListener("input", handleSearch);
 
-  // Construction initiale
-  buildSidebar();
-  commandsSection.innerHTML = `<p>${uiTexts[currentLanguage].selectCategory}</p>`;
-  detailsSection.innerHTML = `<p>${uiTexts[currentLanguage].selectCommand}</p>`;
-  searchInput.placeholder = uiTexts[currentLanguage].placeholderSearch;
-
-  // ============================
-  // buildSidebar() - Catégories + Favoris
-  // ============================
+  // II. Fonctions principales
+  function setLangButtonText() {
+    langToggleBtn.textContent = currentLanguage === "fr" ? "Anglais" : "Français";
+  }
+  function updateUITexts() {
+    searchInput.placeholder = uiTexts[currentLanguage].placeholderSearch;
+  }
   function buildSidebar() {
     sidebar.innerHTML = "";
-    const ulCategories = document.createElement("ul");
-
-    categoriesData.forEach((cat, catIndex) => {
-      const liCat = document.createElement("li");
-      liCat.textContent = cat.name[currentLanguage];
-
-      // Si c'est la catégorie sélectionnée
-      if (catIndex === selectedCatIndex) {
-        liCat.classList.add("selected");
-      }
-
-      liCat.addEventListener("click", () => {
-        selectedCatIndex = catIndex;
+    const ul = document.createElement("ul");
+    categoriesData.forEach((cat, idx) => {
+      const li = document.createElement("li");
+      li.textContent = cat.name[currentLanguage];
+      if (idx === selectedCatIndex) li.classList.add("selected");
+      li.addEventListener("click", () => {
+        selectedCatIndex = idx;
         selectedCmdIndex = null;
-        updateSidebarSelection(ulCategories);
-        displayCommands(catIndex);
+        buildSidebar();
+        displayCommands(idx);
       });
-
-      ulCategories.appendChild(liCat);
+      ul.appendChild(li);
     });
-
-    const hrFavorites = document.createElement("hr");
-    ulCategories.appendChild(hrFavorites);
-
-    const liFavorites = document.createElement("li");
-    liFavorites.textContent = "Favoris";
-    liFavorites.style.marginTop = "0.5rem";
-    liFavorites.addEventListener("click", () => {
-      displayFavorites();
-    });
-    ulCategories.appendChild(liFavorites);
-
-    sidebar.appendChild(ulCategories);
+    const hr = document.createElement("hr");
+    ul.appendChild(hr);
+    const favLi = document.createElement("li");
+    favLi.textContent = currentLanguage === "fr" ? "Favoris" : "Favorites";
+    favLi.addEventListener("click", displayFavorites);
+    ul.appendChild(favLi);
+    sidebar.appendChild(ul);
   }
-
-  // ============================
-  // displayCommands(catIndex)
-  // ============================
-  function displayCommands(catIndex) {
+  function displayCommands(catIdx) {
     commandsSection.innerHTML = "";
     detailsSection.innerHTML = `<p>${uiTexts[currentLanguage].selectCommand}</p>`;
-
-    const selectedCat = categoriesData[catIndex];
-    if (!selectedCat) return;
-
-    const ulCmd = document.createElement("ul");
-    selectedCat.commands.forEach((cmd, cmdIndex) => {
-      const liCmd = document.createElement("li");
-      liCmd.textContent = cmd.name[currentLanguage];
-
-      // commande sélectionnée ?
-      if (cmdIndex === selectedCmdIndex) {
-        liCmd.classList.add("selectedCmd");
-      }
-
-      liCmd.addEventListener("click", () => {
-        selectedCmdIndex = cmdIndex;
-        updateCommandsSelection(ulCmd);
-        displayCommandDetails(catIndex, cmdIndex);
+    categoriesData[catIdx].commands.forEach((cmd, j) => {
+      const li = document.createElement("li");
+      li.textContent = cmd.name[currentLanguage];
+      if (j === selectedCmdIndex) li.classList.add("selectedCmd");
+      li.addEventListener("click", () => {
+        selectedCmdIndex = j;
+        displayCommandDetails(catIdx, j);
       });
-
-      ulCmd.appendChild(liCmd);
+      commandsSection.appendChild(li);
     });
-
-    commandsSection.appendChild(ulCmd);
   }
-
-  // ============================
-  // displayCommandDetails
-  // ============================
-  function displayCommandDetails(catIndex, cmdIndex) {
+  function displayCommandDetails(catIdx, cmdIdx) {
+    const cmd = categoriesData[catIdx].commands[cmdIdx];
     detailsSection.innerHTML = "";
-
-    const cmd = categoriesData[catIndex].commands[cmdIndex];
-    if (!cmd) return;
-
+    // En‑tête
     const h2 = document.createElement("h2");
     h2.textContent = cmd.name[currentLanguage];
-
-    const hr = document.createElement("hr");
-
-    const pDesc = document.createElement("p");
-    pDesc.innerHTML = `<strong>Description :</strong> ${cmd.description[currentLanguage]}`;
-
-    const pEx = document.createElement("p");
-    pEx.innerHTML = `<strong>Exemple :</strong> <code>${cmd.example[currentLanguage]}</code>`;
-
     detailsSection.appendChild(h2);
-    detailsSection.appendChild(hr);
-    detailsSection.appendChild(pDesc);
-    detailsSection.appendChild(pEx);
-
-    // Trait + conteneur de boutons
-    const hr2 = document.createElement("hr");
-    detailsSection.appendChild(hr2);
-
-    const buttonContainer = document.createElement("div");
-    buttonContainer.classList.add("buttonContainer");
-
-    // Bouton "Copier"
+    detailsSection.appendChild(document.createElement("hr"));
+    // Description & exemple
+    const pDesc = document.createElement("p");
+    pDesc.innerHTML = `<strong>${currentLanguage==='fr'?'Description':'Description'} :</strong> ${cmd.description[currentLanguage]}`;
+    const pEx   = document.createElement("p");
+    pEx.innerHTML   = `<strong>${currentLanguage==='fr'?'Exemple':'Example'} :</strong> <code>${cmd.example[currentLanguage]}</code>`;
+    detailsSection.append(pDesc, pEx, document.createElement("hr"));
+    // Boutons
+    const btnContainer = document.createElement("div");
+    btnContainer.classList.add("buttonContainer");
     const copyBtn = document.createElement("button");
-    copyBtn.textContent = (currentLanguage === "fr") ? "Copier la commande" : "Copy command";
+    copyBtn.textContent = currentLanguage==='fr'?'Copier la commande':'Copy command';
     copyBtn.addEventListener("click", () => {
-      navigator.clipboard.writeText(cmd.example[currentLanguage])
-        .then(() => {
-          copyBtn.textContent = (currentLanguage === "fr") ? "Copié !" : "Copied!";
-          setTimeout(() => {
-            copyBtn.textContent = (currentLanguage === "fr") ? "Copier la commande" : "Copy command";
-          }, 1000);
-        })
-        .catch(err => {
-          console.error("Erreur lors de la copie : ", err);
+      navigator.clipboard.writeText(cmd.example[currentLanguage]);
+      copyBtn.textContent = currentLanguage==='fr'?'Copié !':'Copied!';
+      setTimeout(() => {
+        copyBtn.textContent = currentLanguage==='fr'?'Copier la commande':'Copy command';
+      }, 1000);
+    });
+    const favBtn = document.createElement("button");
+    favBtn.textContent = currentLanguage==='fr'?'Ajouter aux favoris':'Add to favorites';
+    favBtn.addEventListener("click", () => {
+      let favs = JSON.parse(localStorage.getItem("favorites"))||[];
+      if (!favs.find(f=>f.name===cmd.name[currentLanguage])) {
+        favs.push({
+          name: cmd.name[currentLanguage],
+          description: cmd.description[currentLanguage],
+          example: cmd.example[currentLanguage]
         });
+        localStorage.setItem("favorites", JSON.stringify(favs));
+        alert(currentLanguage==='fr'?'Ajouté aux favoris !':'Added to favorites!');
+      } else {
+        alert(currentLanguage==='fr'?'Déjà en favoris':'Already in favorites');
+      }
     });
-    buttonContainer.appendChild(copyBtn);
-
-    // Bouton "Favoris"
-    const favoriteBtn = document.createElement("button");
-    favoriteBtn.textContent = (currentLanguage === "fr") ? "Ajouter aux favoris" : "Add to favorites";
-    favoriteBtn.addEventListener("click", () => {
-      addToFavorites(
-        cmd.name[currentLanguage],
-        cmd.description[currentLanguage],
-        cmd.example[currentLanguage]
-      );
-    });
-    buttonContainer.appendChild(favoriteBtn);
-
-    detailsSection.appendChild(buttonContainer);
-
-    applySyntaxHighlighting();
+    btnContainer.append(copyBtn, favBtn);
+    detailsSection.appendChild(btnContainer);
+    // Bloc étendu
+    detailsSection.append(document.createElement("br"), document.createElement("br"), document.createElement("hr"));
+    const extendedDiv = document.createElement("div");
+    let html = `<div style="margin-top: 1rem; padding: 0.5rem 1rem; width: 100%; font-size: 0.92rem;">`;
+    html += `<p style="margin-top: 1.2rem;"><strong>${currentLanguage==='fr'?'Description étendue':'Extended description'} :</strong></p>`;
+    html += `<ul style="padding-left: 1.5rem;">`;
+    cmd.bullets[currentLanguage].forEach(item => html += `<li>${item}</li>`);
+    html += `</ul>`;
+    html += `<p style="margin-top: 1.2rem;"><strong>${currentLanguage==='fr'?'Options utiles':'Useful options'} :</strong></p>`;
+    html += `<ul style="padding-left: 1.5rem;">`;
+    cmd.options[currentLanguage].forEach(opt => html += `<li><code>${opt.opt}</code> : ${opt.desc}.</li>`);
+    html += `</ul>`;
+    html += `<p style="margin-top: 1.2rem;"><strong>${currentLanguage==='fr'?'Exemple complet':'Complete example'} :</strong></p>`;
+    html += `<pre><code>${cmd.extraExample[currentLanguage]}</code></pre>`;
+    html += `<br><br>`;
+    html += `<p>${cmd.recap[currentLanguage]}</p>`;
+    html += `</div>`;
+    extendedDiv.innerHTML = html;
+    detailsSection.appendChild(extendedDiv);
+    // Highlight
+    document.querySelectorAll('code').forEach(block => hljs.highlightElement(block));
   }
-
-  // ============================
-  // handleSearch()
-  // ============================
   function handleSearch() {
-    const query = searchInput.value.toLowerCase().trim();
+    const query = document.getElementById("searchInput").value.toLowerCase().trim();
     if (!query) {
-      commandsSection.innerHTML = `<p>${uiTexts[currentLanguage].selectCategory}</p>`;
-      detailsSection.innerHTML = `<p>${uiTexts[currentLanguage].selectCommand}</p>`;
+      document.getElementById("commands").innerHTML = `<p>${uiTexts[currentLanguage].selectCategory}</p>`;
+      document.getElementById("details").innerHTML  = `<p>${uiTexts[currentLanguage].selectCommand}</p>`;
       return;
     }
-
-    let matched = [];
-    categoriesData.forEach((cat) => {
-      cat.commands.forEach((cmd) => {
-        const fullText = (
+    const matches = [];
+    categoriesData.forEach(cat => {
+      cat.commands.forEach(cmd => {
+        const txt = (
           cmd.name[currentLanguage] + " " +
           cmd.description[currentLanguage] + " " +
           cmd.example[currentLanguage]
         ).toLowerCase();
-        if (fullText.includes(query)) {
-          matched.push({
-            category: cat.name[currentLanguage],
-            name: cmd.name[currentLanguage],
-            description: cmd.description[currentLanguage],
-            example: cmd.example[currentLanguage]
-          });
+        if (txt.includes(query)) {
+          matches.push({ cmd, category: cat.name[currentLanguage] });
         }
       });
     });
-
-    displaySearchResults(matched);
+    displaySearchResults(matches);
   }
-
-  // ============================
-  // displaySearchResults
-  // ============================
   function displaySearchResults(results) {
-    commandsSection.innerHTML = "";
-    detailsSection.innerHTML = `<p>${uiTexts[currentLanguage].clickCommandForDetails}</p>`;
-
-    if (results.length === 0) {
-      commandsSection.innerHTML = `<p>${uiTexts[currentLanguage].noResults}</p>`;
+    const cmds = document.getElementById("commands");
+    const dets = document.getElementById("details");
+    dets.innerHTML = `<p>${uiTexts[currentLanguage].clickCommandForDetails}</p>`;
+    if (!results.length) {
+      cmds.innerHTML = `<p>${uiTexts[currentLanguage].noResults}</p>`;
       return;
     }
-
     const ul = document.createElement("ul");
-    results.forEach((item) => {
+    results.forEach(({ cmd, category }) => {
       const li = document.createElement("li");
-      li.textContent = `${item.name} (${item.category})`;
+      li.textContent = `${cmd.name[currentLanguage]} (${category})`;
       li.addEventListener("click", () => {
-        displaySearchedCommandDetails(item);
+        // trouver index
+        categoriesData.forEach((cat, i) => {
+          const idx = cat.commands.indexOf(cmd);
+          if (idx !== -1) {
+            selectedCatIndex = i;
+            selectedCmdIndex = idx;
+            displayCommandDetails(i, idx);
+          }
+        });
       });
       ul.appendChild(li);
     });
-    commandsSection.appendChild(ul);
+    cmds.innerHTML = "";
+    cmds.appendChild(ul);
   }
-
-  // ============================
-  // displaySearchedCommandDetails
-  // ============================
-  function displaySearchedCommandDetails(item) {
-    detailsSection.innerHTML = "";
-
-    const h2 = document.createElement("h2");
-    h2.textContent = item.name;
-
-    const hr = document.createElement("hr");
-
-    const pDesc = document.createElement("p");
-    pDesc.innerHTML = `<strong>Description :</strong> ${item.description}`;
-
-    const pEx = document.createElement("p");
-    pEx.innerHTML = `<strong>Exemple :</strong> <code>${item.example}</code>`;
-
-    detailsSection.appendChild(h2);
-    detailsSection.appendChild(hr);
-    detailsSection.appendChild(pDesc);
-    detailsSection.appendChild(pEx);
-
-    // Trait + conteneur de boutons
-    const hr2 = document.createElement("hr");
-    detailsSection.appendChild(hr2);
-
-    const buttonContainer = document.createElement("div");
-    buttonContainer.classList.add("buttonContainer");
-
-    // Bouton "Copier"
-    const copyBtn = document.createElement("button");
-    copyBtn.textContent = (currentLanguage === "fr") ? "Copier la commande" : "Copy command";
-    copyBtn.addEventListener("click", () => {
-      navigator.clipboard.writeText(item.example)
-        .then(() => {
-          copyBtn.textContent = (currentLanguage === "fr") ? "Copié !" : "Copied!";
-          setTimeout(() => {
-            copyBtn.textContent = (currentLanguage === "fr") ? "Copier la commande" : "Copy command";
-          }, 1000);
-        })
-        .catch(err => {
-          console.error("Erreur lors de la copie : ", err);
-        });
-    });
-    buttonContainer.appendChild(copyBtn);
-
-    // Bouton "Favoris"
-    const favoriteBtn = document.createElement("button");
-    favoriteBtn.textContent = (currentLanguage === "fr") ? "Ajouter aux favoris" : "Add to favorites";
-    favoriteBtn.addEventListener("click", () => {
-      addToFavorites(item.name, item.description, item.example);
-    });
-    buttonContainer.appendChild(favoriteBtn);
-
-    detailsSection.appendChild(buttonContainer);
-
-    applySyntaxHighlighting();
-  }
-
-  // ============================
-  // displayFavorites() -> Colonne du milieu
-  // ============================
   function displayFavorites() {
-    commandsSection.innerHTML = "";
-    detailsSection.innerHTML = `<p>${uiTexts[currentLanguage].clickCommandForDetails}</p>`;
-
-    let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-
-    if (favorites.length === 0) {
-      commandsSection.innerHTML = `<p>${uiTexts[currentLanguage].noFavorites}</p>`;
+    const cmds = document.getElementById("commands");
+    const dets = document.getElementById("details");
+    dets.innerHTML = `<p>${uiTexts[currentLanguage].clickCommandForDetails}</p>`;
+    const favs = JSON.parse(localStorage.getItem("favorites"))||[];
+    if (!favs.length) {
+      cmds.innerHTML = `<p>${uiTexts[currentLanguage].noFavorites}</p>`;
       return;
     }
-
     const ul = document.createElement("ul");
-    favorites.forEach((favItem) => {
+    favs.forEach(item => {
       const li = document.createElement("li");
-      li.textContent = favItem.name;
+      li.textContent = item.name;
       li.addEventListener("click", () => {
-        displayFavoriteCommandDetails(favItem);
+        // affichage minimal
+        dets.innerHTML = `
+          <h2>${item.name}</h2><hr>
+          <p><strong>${currentLanguage==='fr'?'Description':'Description'} :</strong> ${item.description}</p>
+          <p><strong>${currentLanguage==='fr'?'Exemple':'Example'} :</strong> <code>${item.example}</code></p>
+        `;
+        document.querySelectorAll('code').forEach(block => hljs.highlightElement(block));
       });
       ul.appendChild(li);
     });
-
-    commandsSection.appendChild(ul);
-  }
-
-  // ============================
-  // displayFavoriteCommandDetails
-  // ============================
-  function displayFavoriteCommandDetails(favItem) {
-    detailsSection.innerHTML = "";
-
-    const h2 = document.createElement("h2");
-    h2.textContent = favItem.name;
-
-    const hr = document.createElement("hr");
-
-    const pDesc = document.createElement("p");
-    pDesc.innerHTML = `<strong>Description :</strong> ${favItem.description}`;
-
-    const pEx = document.createElement("p");
-    pEx.innerHTML = `<strong>Exemple :</strong> <code>${favItem.example}</code>`;
-
-    detailsSection.appendChild(h2);
-    detailsSection.appendChild(hr);
-    detailsSection.appendChild(pDesc);
-    detailsSection.appendChild(pEx);
-
-    // Trait + conteneur de boutons
-    const hr2 = document.createElement("hr");
-    detailsSection.appendChild(hr2);
-
-    const buttonContainer = document.createElement("div");
-    buttonContainer.classList.add("buttonContainer");
-
-    // Bouton "Copier"
-    const copyBtn = document.createElement("button");
-    copyBtn.textContent = (currentLanguage === "fr") ? "Copier la commande" : "Copy command";
-    copyBtn.addEventListener("click", () => {
-      navigator.clipboard.writeText(favItem.example)
-        .then(() => {
-          copyBtn.textContent = (currentLanguage === "fr") ? "Copié !" : "Copied!";
-          setTimeout(() => {
-            copyBtn.textContent = (currentLanguage === "fr") ? "Copier la commande" : "Copy command";
-          }, 1000);
-        })
-        .catch(err => {
-          console.error("Erreur lors de la copie : ", err);
-        });
-    });
-    buttonContainer.appendChild(copyBtn);
-
-    detailsSection.appendChild(buttonContainer);
-
-    applySyntaxHighlighting();
-  }
-
-  // ============================
-  // addToFavorites
-  // ============================
-  function addToFavorites(name, description, example) {
-    let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
-    let alreadyExists = favorites.some(item => item.name === name && item.example === example);
-    if (!alreadyExists) {
-      favorites.push({ name, description, example });
-      localStorage.setItem("favorites", JSON.stringify(favorites));
-      alert((currentLanguage === "fr") ? "Ajouté aux favoris !" : "Added to favorites!");
-    } else {
-      alert((currentLanguage === "fr") ? "Cette commande est déjà dans vos favoris." : "This command is already in your favorites.");
-    }
-  }
-
-  // ============================
-  // applySyntaxHighlighting
-  // ============================
-  function applySyntaxHighlighting() {
-    document.querySelectorAll('code').forEach(block => {
-      hljs.highlightElement(block);
-    });
-  }
-
-  // ============================
-  // updateUITexts (si besoin de maj)
-  // ============================
-  function updateUITexts() {
-    searchInput.placeholder = uiTexts[currentLanguage].placeholderSearch;
-  }
-
-  // ============================
-  // updateSidebarSelection
-  // ============================
-  function updateSidebarSelection(ulCategories) {
-    const liList = ulCategories.querySelectorAll("li");
-    liList.forEach((li) => {
-      li.classList.remove("selected");
-    });
-    if (selectedCatIndex !== null && selectedCatIndex < liList.length) {
-      liList[selectedCatIndex].classList.add("selected");
-    }
-  }
-
-  // ============================
-  // updateCommandsSelection
-  // ============================
-  function updateCommandsSelection(ulCmd) {
-    const liList = ulCmd.querySelectorAll("li");
-    liList.forEach((li) => {
-      li.classList.remove("selectedCmd");
-    });
-    if (selectedCmdIndex !== null && selectedCmdIndex < liList.length) {
-      liList[selectedCmdIndex].classList.add("selectedCmd");
-    }
+    cmds.innerHTML = "";
+    cmds.appendChild(ul);
   }
 });
