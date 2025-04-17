@@ -572,11 +572,11 @@ let selectedCatIndex = null;
 let selectedCmdIndex = null;
 
 // Sélecteurs pour l’interface admin
-const btnAddCmd    = document.getElementById("btnAddCmd");
+
 const modalAddCmd  = document.getElementById("modalAddCmd");
 const formAddCmd   = document.getElementById("formAddCmd");
 const cancelAddCmd = document.getElementById("cancelAddCmd");
-const btnAddExo    = document.getElementById("btnAddExo");
+
 const modalAddExo  = document.getElementById("modalAddExo");
 const formAddExo   = document.getElementById("formAddExo");
 const cancelAddExo = document.getElementById("cancelAddExo");
