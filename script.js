@@ -541,36 +541,47 @@ const categoriesData = [
     ]
   }
 ];
+const contenuExercice = `
+  <h2>Exercice pratique</h2>
+  <p>Créez un script Bash ou PowerShell permettant de lister automatiquement tous les fichiers modifiés au cours des 7 derniers jours dans un répertoire donné, puis d’envoyer ce rapport par e-mail à un administrateur.</p>
+`;
 
 
 // Textes d'interface
 const uiTexts = {
   fr: {
-    selectCategory:         "Sélectionnez une catégorie pour afficher les commandes.",
-    selectCommand:          "Sélectionnez une commande pour voir les détails.",
-    noResults:              "Aucun résultat pour cette recherche.",
+    selectCategory: "Sélectionnez une catégorie pour afficher les commandes.",
+    selectCommand:  "Sélectionnez une commande pour voir les détails.",
+    noResults:      "Aucun résultat pour cette recherche.",
     clickCommandForDetails: "Cliquez sur une commande pour voir les détails.",
-    noFavorites:            "Aucun favori pour le moment.",
-    placeholderSearch:      "Rechercher une commande..."
+    noFavorites:    "Aucun favori pour le moment.",
+    placeholderSearch: "Rechercher une commande..."
   },
   en: {
-    selectCategory:         "Select a category to display commands.",
-    selectCommand:          "Select a command to see details.",
-    noResults:              "No results for this search.",
+    selectCategory: "Select a category to display commands.",
+    selectCommand:  "Select a command to see details.",
+    noResults:      "No results for this search.",
     clickCommandForDetails: "Click a command to see details.",
-    noFavorites:            "No favorites yet.",
-    placeholderSearch:      "Search a command..."
+    noFavorites:    "No favorites yet.",
+    placeholderSearch: "Search a command..."
   }
 };
 
-let currentLanguage  = localStorage.getItem("lang") || "fr";
+let currentLanguage = localStorage.getItem("lang") || "fr";
 let selectedCatIndex = null;
 let selectedCmdIndex = null;
 
-window.addEventListener("DOMContentLoaded", () => {
-  console.log("✅ script.js chargé");
-  console.log("categoriesData contient", categoriesData.length, "catégories");
+// Sélecteurs pour l’interface admin
+const btnAddCmd    = document.getElementById("btnAddCmd");
+const modalAddCmd  = document.getElementById("modalAddCmd");
+const formAddCmd   = document.getElementById("formAddCmd");
+const cancelAddCmd = document.getElementById("cancelAddCmd");
+const btnAddExo    = document.getElementById("btnAddExo");
+const modalAddExo  = document.getElementById("modalAddExo");
+const formAddExo   = document.getElementById("formAddExo");
+const cancelAddExo = document.getElementById("cancelAddExo");
 
+window.addEventListener("DOMContentLoaded", () => {
   const sidebar         = document.getElementById("sidebar");
   const commandsSection = document.getElementById("commands");
   const detailsSection  = document.getElementById("details");
@@ -579,14 +590,13 @@ window.addEventListener("DOMContentLoaded", () => {
   const darkModeToggle  = document.getElementById("darkModeToggle");
   const langToggleBtn   = document.getElementById("langToggleBtn");
 
-  // Initialisation de l'UI
   setLangButtonText();
   updateUITexts();
   buildSidebar();
+
   commandsSection.innerHTML = `<p>${uiTexts[currentLanguage].selectCategory}</p>`;
   detailsSection.innerHTML  = `<p>${uiTexts[currentLanguage].selectCommand}</p>`;
 
-  // Événements globaux
   langToggleBtn.addEventListener("click", () => {
     currentLanguage = currentLanguage === "fr" ? "en" : "fr";
     localStorage.setItem("lang", currentLanguage);
@@ -597,204 +607,313 @@ window.addEventListener("DOMContentLoaded", () => {
     detailsSection.innerHTML  = `<p>${uiTexts[currentLanguage].selectCommand}</p>`;
     selectedCatIndex = selectedCmdIndex = null;
   });
+
   darkModeToggle.addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
   });
+
   searchBtn.addEventListener("click", handleSearch);
   searchInput.addEventListener("input", handleSearch);
 
-  // — Fonctions principales —
+  // Admin modals
+  btnAddCmd.addEventListener("click", () => modalAddCmd.classList.remove("hidden"));
+  cancelAddCmd.addEventListener("click", () => modalAddCmd.classList.add("hidden"));
+  formAddCmd.addEventListener("submit", handleAddCommand);
 
-  function setLangButtonText() {
-    langToggleBtn.textContent = currentLanguage === "fr" ? "Anglais" : "Français";
-  }
+  btnAddExo.addEventListener("click", () => modalAddExo.classList.remove("hidden"));
+  cancelAddExo.addEventListener("click", () => modalAddExo.classList.add("hidden"));
+  formAddExo.addEventListener("submit", handleAddExercise);
+});
 
-  function updateUITexts() {
-    searchInput.placeholder = uiTexts[currentLanguage].placeholderSearch;
-  }
+function setLangButtonText() {
+  const langToggleBtn = document.getElementById("langToggleBtn");
+  langToggleBtn.textContent = currentLanguage === "fr" ? "Anglais" : "Français";
+}
 
-  function buildSidebar() {
-    sidebar.innerHTML = "";
-    const ul = document.createElement("ul");
-    categoriesData.forEach((cat, idx) => {
-      const li = document.createElement("li");
-      li.textContent = cat.name[currentLanguage];
-      if (idx === selectedCatIndex) li.classList.add("selected");
-      li.addEventListener("click", () => {
-        selectedCatIndex = idx;
-        selectedCmdIndex = null;
-        buildSidebar();
-        displayCommands(idx);
-      });
-      ul.appendChild(li);
+function updateUITexts() {
+  const searchInput = document.getElementById("searchInput");
+  searchInput.placeholder = uiTexts[currentLanguage].placeholderSearch;
+}
+
+// script.js
+// ==========================================================
+// 1) TABLEAU CATEGORIES + COMMANDES (FR/EN intégrés)
+// ==========================================================
+// (le contenu de categoriesData reste inchangé...)
+
+// ...code précédent conservé...
+
+function buildSidebar() {
+  const sidebar = document.getElementById("sidebar");
+  sidebar.innerHTML = "";
+  const ul = document.createElement("ul");
+
+  // Catégories
+  categoriesData.forEach((cat, idx) => {
+    const li = document.createElement("li");
+    li.textContent = cat.name[currentLanguage];
+    if (idx === selectedCatIndex) li.classList.add("selected");
+    li.addEventListener("click", () => {
+      selectedCatIndex = idx;
+      selectedCmdIndex = null;
+      buildSidebar();
+      displayCommands(idx);
     });
-    ul.appendChild(document.createElement("hr"));
-    const favLi = document.createElement("li");
-    favLi.textContent = currentLanguage === "fr" ? "Favoris" : "Favorites";
-    favLi.addEventListener("click", displayFavorites);
-    ul.appendChild(favLi);
-    sidebar.appendChild(ul);
-  }
+    ul.appendChild(li);
+  });
 
-  function displayCommands(catIdx) {
-    commandsSection.innerHTML = "";
-    detailsSection.innerHTML  = `<p>${uiTexts[currentLanguage].selectCommand}</p>`;
-    categoriesData[catIdx].commands.forEach((cmd, j) => {
-      const li = document.createElement("li");
-      li.textContent = cmd.name[currentLanguage];
-      if (j === selectedCmdIndex) li.classList.add("selectedCmd");
-      li.addEventListener("click", () => {
-        selectedCmdIndex = j;
-        displayCommandDetails(catIdx, j);
-      });
-      commandsSection.appendChild(li);
+  ul.appendChild(document.createElement("hr"));
+
+  // Favoris
+  const favLi = document.createElement("li");
+  favLi.textContent = currentLanguage === "fr" ? "Favoris" : "Favorites";
+  favLi.addEventListener("click", displayFavorites);
+  ul.appendChild(favLi);
+
+  // Exercice 1
+  const practice1Li = document.createElement("li");
+  practice1Li.textContent = currentLanguage === "fr" ? "Pratique 1" : "Exercise 1";
+  practice1Li.addEventListener("click", displayPractice);
+  ul.appendChild(practice1Li);
+
+  // Exercice 2
+  const practice2Li = document.createElement("li");
+  practice2Li.textContent = currentLanguage === "fr" ? "Pratique 2" : "Exercise 2";
+  practice2Li.addEventListener("click", displayPractice2);
+  ul.appendChild(practice2Li);
+
+  sidebar.appendChild(ul);
+}
+
+// ❌ Suppression des fonctions liées à "ajouter commande" et "ajouter exercice" car les boutons n'existent plus.
+
+
+
+function displayCommands(catIdx) {
+  const commandsSection = document.getElementById("commands");
+  const detailsSection  = document.getElementById("details");
+  commandsSection.innerHTML = "";
+  detailsSection.innerHTML  = `<p>${uiTexts[currentLanguage].selectCommand}</p>`;
+
+  categoriesData[catIdx].commands.forEach((cmd, j) => {
+    const li = document.createElement("li");
+    li.textContent = cmd.name[currentLanguage];
+    if (j === selectedCmdIndex) li.classList.add("selectedCmd");
+    li.addEventListener("click", () => {
+      selectedCmdIndex = j;
+      displayCommandDetails(catIdx, j);
     });
-  }
+    commandsSection.appendChild(li);
+  });
+}
 
-  function displayCommandDetails(catIdx, cmdIdx) {
-    const cmd = categoriesData[catIdx].commands[cmdIdx];
-    detailsSection.innerHTML = "";
+function displayCommandDetails(catIdx, cmdIdx) {
+  const cmd = categoriesData[catIdx].commands[cmdIdx];
+  const detailsSection = document.getElementById("details");
+  detailsSection.innerHTML = "";
 
-    // En‑tête
-    const h2 = document.createElement("h2");
-    h2.textContent = cmd.name[currentLanguage];
-    detailsSection.appendChild(h2);
-    detailsSection.appendChild(document.createElement("hr"));
+  // En-tête
+  const h2 = document.createElement("h2");
+  h2.textContent = cmd.name[currentLanguage];
+  detailsSection.append(h2, document.createElement("hr"));
 
-    // Description & Exemple
-    const pDesc = document.createElement("p");
-    pDesc.innerHTML = `<strong>Description :</strong> ${cmd.description[currentLanguage]}`;
-    const pEx = document.createElement("p");
-    pEx.innerHTML = `<strong>Exemple :</strong> <code>${cmd.example[currentLanguage]}</code>`;
-    detailsSection.append(pDesc, pEx, document.createElement("hr"));
+  // Description & Exemple
+  const pDesc = document.createElement("p");
+  pDesc.innerHTML = `<strong>Description :</strong> ${cmd.description[currentLanguage]}`;
+  const pEx   = document.createElement("p");
+  pEx.innerHTML   = `<strong>Exemple :</strong> <code>${cmd.example[currentLanguage]}</code>`;
+  detailsSection.append(pDesc, pEx, document.createElement("hr"));
 
-    // Boutons
-    const btnContainer = document.createElement("div");
-    btnContainer.classList.add("buttonContainer");
-    // Copier
-    const copyBtn = document.createElement("button");
-    copyBtn.textContent = currentLanguage === "fr" ? "Copier la commande" : "Copy command";
-    copyBtn.addEventListener("click", () => {
-      navigator.clipboard.writeText(cmd.example[currentLanguage]);
-      copyBtn.textContent = currentLanguage === "fr" ? "Copié !" : "Copied!";
-      setTimeout(() => {
-        copyBtn.textContent = currentLanguage === "fr" ? "Copier la commande" : "Copy command";
-      }, 1000);
-    });
-    // Favoris
-    const favBtn = document.createElement("button");
-    favBtn.textContent = currentLanguage === "fr" ? "Ajouter aux favoris" : "Add to favorites";
-    favBtn.addEventListener("click", () => {
-      let favs = JSON.parse(localStorage.getItem("favorites")) || [];
-      if (!favs.find(f => f.name === cmd.name[currentLanguage])) {
-        favs.push({ name: cmd.name[currentLanguage], description: cmd.description[currentLanguage], example: cmd.example[currentLanguage] });
-        localStorage.setItem("favorites", JSON.stringify(favs));
-        alert(currentLanguage === "fr" ? "Ajouté aux favoris !" : "Added to favorites!");
-      } else alert(currentLanguage === "fr" ? "Déjà en favoris" : "Already in favorites");
-    });
-    // Tester
-    
-   
-    btnContainer.append(copyBtn, favBtn);
+  // Boutons
+  const btnContainer = document.createElement("div");
+  btnContainer.classList.add("buttonContainer");
 
-    detailsSection.appendChild(btnContainer);
+  const copyBtn = document.createElement("button");
+  copyBtn.textContent = currentLanguage === "fr" ? "Copier la commande" : "Copy command";
+  copyBtn.addEventListener("click", () => {
+    navigator.clipboard.writeText(cmd.example[currentLanguage]);
+    copyBtn.textContent = currentLanguage === "fr" ? "Copié !" : "Copied!";
+    setTimeout(() => copyBtn.textContent = currentLanguage === "fr" ? "Copier la commande" : "Copy command", 1000);
+  });
 
-    // Bloc étendu
-    detailsSection.append(document.createElement("br"), document.createElement("br"), document.createElement("hr"));
-    const extendedDiv = document.createElement("div");
-    let html = `<div style="margin-top:1rem;padding:0.5rem 1rem;width:100%;font-size:0.92rem;">`;
-    html += `<p><strong>${currentLanguage === "fr" ? "Description étendue" : "Extended description"} :</strong></p>`;
-    html += `<ul>`;
-    cmd.bullets[currentLanguage].forEach(item => html += `<li>${item}</li>`);
-    html += `</ul>`;
-    html += `<p><strong>${currentLanguage === "fr" ? "Options utiles" : "Useful options"} :</strong></p>`;
-    html += `<ul>`;
-    cmd.options[currentLanguage].forEach(opt => html += `<li><code>${opt.opt}</code> : ${opt.desc}.</li>`);
-    html += `</ul>`;
-    html += `<p><strong>${currentLanguage === "fr" ? "Exemple complet" : "Complete example"} :</strong></p>`;
-    html += `<pre><code>${cmd.extraExample[currentLanguage]}</code></pre>`;
-    html += `<p>${cmd.recap[currentLanguage]}</p>`;
-    html += `</div>`;
-    extendedDiv.innerHTML = html;
-    detailsSection.appendChild(extendedDiv);
-
-    // Highlight
-    if (typeof hljs !== "undefined") {
-      document.querySelectorAll("code").forEach(b => hljs.highlightElement(b));
+  const favBtn = document.createElement("button");
+  favBtn.textContent = currentLanguage === "fr" ? "Ajouter aux favoris" : "Add to favorites";
+  favBtn.addEventListener("click", () => {
+    let favs = JSON.parse(localStorage.getItem("favorites")) || [];
+    if (!favs.find(f => f.name === cmd.name[currentLanguage])) {
+      favs.push({ name: cmd.name[currentLanguage], description: cmd.description[currentLanguage], example: cmd.example[currentLanguage] });
+      localStorage.setItem("favorites", JSON.stringify(favs));
+      alert(currentLanguage === "fr" ? "Ajouté aux favoris !" : "Added to favorites!");
+    } else {
+      alert(currentLanguage === "fr" ? "Déjà en favoris" : "Already in favorites");
     }
-  }
+  });
 
-  function handleSearch() {
-    const query = searchInput.value.toLowerCase().trim();
-    if (!query) {
-      commandsSection.innerHTML = `<p>${uiTexts[currentLanguage].selectCategory}</p>`;
-      detailsSection.innerHTML  = `<p>${uiTexts[currentLanguage].selectCommand}</p>`;
-      return;
-    }
-    const matches = [];
-    categoriesData.forEach(cat => cat.commands.forEach(cmd => {
-      if (`${cmd.name[currentLanguage]} ${cmd.description[currentLanguage]} ${cmd.example[currentLanguage]}`.toLowerCase().includes(query)) {
-        matches.push({ cmd, category: cat.name[currentLanguage] });
-      }
-    }));
-    displaySearchResults(matches);
-  }
+  btnContainer.append(copyBtn, favBtn);
+  detailsSection.appendChild(btnContainer);
 
-  function displaySearchResults(results) {
-    const cmds = document.getElementById("commands");
-    const dets = document.getElementById("details");
-    dets.innerHTML = `<p>${uiTexts[currentLanguage].clickCommandForDetails}</p>`;
-    if (!results.length) {
-      cmds.innerHTML = `<p>${uiTexts[currentLanguage].noResults}</p>`;
-      return;
-    }
-    const ul = document.createElement("ul");
-    results.forEach(({ cmd, category }) => {
-      const li = document.createElement("li");
-      li.textContent = `${cmd.name[currentLanguage]} (${category})`;
-      li.addEventListener("click", () => {
-        categoriesData.forEach((cat, i) => {
-          const idx = cat.commands.indexOf(cmd);
-          if (idx !== -1) {
-            selectedCatIndex = i;
-            selectedCmdIndex = idx;
-            displayCommandDetails(i, idx);
-          }
-        });
-      });
-      ul.appendChild(li);
-    });
-    cmds.innerHTML = "";
-    cmds.appendChild(ul);
-  }
+  // Bloc étendu
+  const extendedDiv = document.createElement("div");
+  let html = `<div style="margin-top:1rem;padding:0.5rem 1rem;width:100%;font-size:0.92rem;">`;
+  html += `<p><strong>${currentLanguage === "fr" ? "Description étendue" : "Extended description"} :</strong></p>`;
+  html += `<ul>`;
+  cmd.bullets[currentLanguage].forEach(item => html += `<li>${item}</li>`);
+  html += `</ul>`;
+  html += `<p><strong>${currentLanguage === "fr" ? "Options utiles" : "Useful options"} :</strong></p>`;
+  html += `<ul>`;
+  cmd.options[currentLanguage].forEach(opt => html += `<li><code>${opt.opt}</code> : ${opt.desc}.</li>`);
+  html += `</ul>`;
+  html += `<p><strong>${currentLanguage === "fr" ? "Exemple complet" : "Complete example"} :</strong></p>`;
+  html += `<pre><code>${cmd.extraExample[currentLanguage]}</code></pre>`;
+  html += `<p>${cmd.recap[currentLanguage]}</p>`;
+  html += `</div>`;
+  extendedDiv.innerHTML = html;
+  detailsSection.appendChild(extendedDiv);
 
-  function displayFavorites() {
-    const cmds = document.getElementById("commands");
-    const dets = document.getElementById("details");
-    dets.innerHTML = `<p>${uiTexts[currentLanguage].clickCommandForDetails}</p>`;
-    const favs = JSON.parse(localStorage.getItem("favorites")) || [];
-    if (!favs.length) {
-      cmds.innerHTML = `<p>${uiTexts[currentLanguage].noFavorites}</p>`;
-      return;
-    }
-    const ul = document.createElement("ul");
-    favs.forEach(item => {
-      const li = document.createElement("li");
-      li.textContent = item.name;
-      li.addEventListener("click", () => {
-        dets.innerHTML = `
-          <h2>${item.name}</h2><hr>
-          <p><strong>Description :</strong> ${item.description}</p>
-          <p><strong>Exemple :</strong> <code>${item.example}</code></p>
-        `;
-        if (typeof hljs !== "undefined") {
-          document.querySelectorAll("code").forEach(b => hljs.highlightElement(b));
+  if (typeof hljs !== "undefined") {
+    document.querySelectorAll("code").forEach(b => hljs.highlightElement(b));
+  }
+}
+
+function handleSearch() {
+  const query = document.getElementById("searchInput").value.toLowerCase().trim();
+  const cmds = document.getElementById("commands");
+  const dets = document.getElementById("details");
+  if (!query) {
+    cmds.innerHTML = `<p>${uiTexts[currentLanguage].selectCategory}</p>`;
+    dets.innerHTML = `<p>${uiTexts[currentLanguage].selectCommand}</p>`;
+    return;
+  }
+  const matches = [];
+  categoriesData.forEach(cat => cat.commands.forEach(cmd => {
+    const text = `${cmd.name[currentLanguage]} ${cmd.description[currentLanguage]} ${cmd.example[currentLanguage]}`.toLowerCase();
+    if (text.includes(query)) matches.push({ cmd, category: cat.name[currentLanguage] });
+  }));
+  displaySearchResults(matches);
+}
+
+function displaySearchResults(results) {
+  const cmds = document.getElementById("commands");
+  const dets = document.getElementById("details");
+  dets.innerHTML = `<p>${uiTexts[currentLanguage].clickCommandForDetails}</p>`;
+  if (!results.length) {
+    cmds.innerHTML = `<p>${uiTexts[currentLanguage].noResults}</p>`;
+    return;
+  }
+  const ul = document.createElement("ul");
+  results.forEach(({ cmd, category }) => {
+    const li = document.createElement("li");
+    li.textContent = `${cmd.name[currentLanguage]} (${category})`;
+    li.addEventListener("click", () => {
+      categoriesData.forEach((cat, i) => {
+        const idx = cat.commands.indexOf(cmd);
+        if (idx !== -1) {
+          selectedCatIndex = i;
+          selectedCmdIndex = idx;
+          displayCommandDetails(i, idx);
         }
       });
-      ul.appendChild(li);
     });
-    cmds.innerHTML = "";
-    cmds.appendChild(ul);
-  }
+    ul.appendChild(li);
+  });
+  cmds.innerHTML = "";
+  cmds.appendChild(ul);
+}
 
-}); // FIN DOMContentLoaded
+function displayFavorites() {
+  const cmds = document.getElementById("commands");
+  const dets = document.getElementById("details");
+  dets.innerHTML = `<p>${uiTexts[currentLanguage].clickCommandForDetails}</p>`;
+  const favs = JSON.parse(localStorage.getItem("favorites")) || [];
+  if (!favs.length) {
+    cmds.innerHTML = `<p>${uiTexts[currentLanguage].noFavorites}</p>`;
+    return;
+  }
+  const ul = document.createElement("ul");
+  favs.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = item.name;
+    li.addEventListener("click", () => {
+      dets.innerHTML = `
+        <h2>${item.name}</h2><hr>
+        <p><strong>Description :</strong> ${item.description}</p>
+        <p><strong>Exemple :</strong> <code>${item.example}</code></p>
+      `;
+      if (typeof hljs !== "undefined") {
+        document.querySelectorAll("code").forEach(b => hljs.highlightElement(b));
+      }
+    });
+    ul.appendChild(li);
+  });
+  cmds.innerHTML = "";
+  cmds.appendChild(ul);
+}
+
+async function displayPractice() {
+  const details = document.getElementById("details");
+  try {
+    const res = await fetch("exercice1.html");
+    if (!res.ok) throw new Error(res.statusText);
+    details.innerHTML = await res.text();
+  } catch (err) {
+    details.innerHTML = `<p>Impossible de charger l’exercice 1 : ${err.message}</p>`;
+  }
+}
+
+async function displayPractice2() {
+  const details = document.getElementById("details");
+  try {
+    const res = await fetch("exercice2.html");
+    if (!res.ok) throw new Error(res.statusText);
+    details.innerHTML = await res.text();
+  } catch (err) {
+    details.innerHTML = `<p>Impossible de charger l’exercice 2 : ${err.message}</p>`;
+  }
+}
+
+// Handler admin command addition
+function handleAddCommand(e) {
+  e.preventDefault();
+  const data     = new FormData(formAddCmd);
+  const category = data.get("category");
+  let cat = categoriesData.find(c => c.name.fr === category || c.name.en === category);
+  if (!cat) {
+    cat = { name: { fr: category, en: category }, commands: [] };
+    categoriesData.push(cat);
+  }
+  cat.commands.push({
+    name:        { fr: data.get("nameFr"), en: data.get("nameEn") },
+    description: { fr: data.get("descFr"), en: data.get("descEn") },
+    example:     { fr: "", en: "" }, bullets: { fr: [], en: [] },
+    options:     { fr: [], en: [] },
+    extraExample:{ fr: "", en: "" }, recap: { fr: "", en: "" }
+  });
+  buildSidebar();
+  modalAddCmd.classList.add("hidden");
+  formAddCmd.reset();
+}
+
+// Handler admin exercise addition
+function handleAddExercise(e) {
+  e.preventDefault();
+  const data     = new FormData(formAddExo);
+  const fileName = data.get("fileName");
+  const html     = data.get("htmlContent");
+  const blob     = new Blob([html], { type: "text/html" });
+  const url      = URL.createObjectURL(blob);
+  const a        = document.createElement("a");
+  a.href         = url;
+  a.download     = fileName;
+  a.click();
+  URL.revokeObjectURL(url);
+  // Ajout dans le menu
+  const li = document.createElement("li");
+  li.textContent = currentLanguage === "fr" ? `Pratique (${fileName})` : `Exercise (${fileName})`;
+  li.addEventListener("click", async () => {
+    const res = await fetch(fileName);
+    document.getElementById("details").innerHTML = await res.text();
+  });
+  document.getElementById("sidebar").querySelector("ul").appendChild(li);
+  modalAddExo.classList.add("hidden");
+  formAddExo.reset();
+}
