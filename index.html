@@ -28,25 +28,44 @@
   </header>
 
   <main class="container">
+    <!-- Colonne 1 : sidebar -->
     <nav class="sidebar" id="sidebar">
       <!-- injection des catégories via script.js -->
     </nav>
+
+    <!-- Colonne 2 : commandes -->
     <section class="commands" id="commands">
       <p>Sélectionnez une catégorie pour afficher les commandes.</p>
     </section>
+
+    <!-- Colonne 3 : détails -->
     <section class="details" id="details">
       <p>Sélectionnez une commande pour voir les détails.</p>
     </section>
+
+    <!-- Colonne 4 : console réelle dans un iframe -->
+    <section class="extra" id="extra">
+      <iframe
+        id="liveConsole"
+        src="https://bellard.org/jslinux/vm.html?url=alpine-x86.cfg&mem=192"
+        style="width: 100%; height: 100%; border: none;">
+      </iframe>
+    </section>
   </main>
 
-  <footer style="display:flex; align-items:center;">
-    <img src="anis.png" alt="Photo d'Anis" style="height:50px; object-fit:cover;">
-    <span style="margin-left:0.25rem;">© Anis Ghaieb 2025 – <a href="mentions.html">Tous droits réservés</a></span>
+  <footer style="display: flex; align-items: center;">
+    <img src="anis.png" alt="Photo d'Anis" style="height: 50px; object-fit: cover;">
+    <span style="margin-left: 0.25rem;">
+      © Anis Ghaieb 2025 – <a href="mentions.html">Tous droits réservés</a>
+    </span>
   </footer>
 
-  <script src="script.js"></script>
+  <!-- highlight.js -->
   <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/highlight.js@11.5.0/styles/default.min.css">
   <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.5.0/lib/highlight.min.js"></script>
+
+  <!-- script principal -->
+  <script src="script.js"></script>
 </body>
 </html>
