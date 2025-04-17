@@ -1,0 +1,57 @@
+<!-- exercice2.html -->
+<div class="tp-exercise">
+  <h2>TP – Organisation d’une bibliothèque multimédia</h2>
+    <hr>
+  <h3>Objectifs pédagogiques</h3>
+  <ul>
+    <li>Créer et structurer des dossiers pour différents types de média.</li>
+    <li>Ajouter et nommer correctement des fichiers numériques.</li>
+    <li>Repositionner des fichiers dans leurs répertoires adaptés.</li>
+    <li>Supprimer les fichiers obsolètes.</li>
+    <li>Vérifier la structure finale du projet.</li>
+  </ul>
+  <hr>
+  <h3>Contexte du TP</h3>
+  <p>Vous aidez un club multimédia à organiser ses contenus : musique, photos et vidéos.</p>
+  <ul>
+    <li><strong>Musique</strong></li>
+    <li><strong>Photos</strong></li>
+    <li><strong>Vidéos</strong></li>
+  </ul>
+  <hr>
+  <h3>Étapes à suivre</h3>
+  <h4>1. Création de quelques fichiers</h4>
+  <ul>
+    <li>Dans le dossier courant, créez <code>readme.txt</code> avec « Club multimédia ».</li>
+    <li>Créez un fichier vide <code>cover.jpg</code> et un fichier <code>intro.mp3</code>.</li>
+  </ul>
+  <h4>2. Création de la structure de dossiers</h4>
+  <pre><code>MediaLibrary/
+├── Musique/
+├── Photos/
+└── Vidéos/</code></pre>
+  <h4>3. Déplacement des fichiers</h4>
+  <ul>
+    <li>Déplacez <code>intro.mp3</code> vers <code>MediaLibrary/Musique/</code>.</li>
+    <li>Déplacez <code>cover.jpg</code> vers <code>MediaLibrary/Photos/</code>.</li>
+    <li>Déplacez <code>readme.txt</code> dans <code>MediaLibrary/</code>.</li>
+  </ul>
+  <h4>4. Suppressions</h4>
+  <ul>
+    <li>Supprimez tout fichier inutile dans <code>MediaLibrary/Vidéos/</code> (s’il en existe).</li>
+  </ul>
+  <h4>5. Vérification finale</h4>
+  <p>Exécutez <code>tree MediaLibrary</code> pour confirmer la structure :</p>
+  <pre><code>MediaLibrary/
+├── cover.jpg
+├── intro.mp3
+├── Musique/
+│   └── intro.mp3
+├── Photos/
+│   └── cover.jpg
+└── Vidéos/</code></pre>
+  <hr>
+  <h3>Commandes utiles</h3>
+  <p><code>touch</code>, <code>echo</code>, <code>mkdir</code>, <code>mv</code>, <code>rm</code>, <code>tree</code></p>
+  <p><em>Remarque : ce TP se fait sous Linux ou PowerShell.</em></p>
+</div>

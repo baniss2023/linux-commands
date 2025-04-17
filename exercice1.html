@@ -1,0 +1,66 @@
+<!-- exercice1.html -->
+<div class="tp-exercise">
+  <h2>TP – Organisation d’un projet scolaire avec gestion de fichiers</h2>
+    <hr>
+  <h3>Objectifs pédagogiques</h3>
+  <ul>
+    <li>Créer une arborescence logique de dossiers.</li>
+    <li>Ajouter des fichiers avec et sans contenu.</li>
+    <li>Déplacer des fichiers dans d'autres répertoires.</li>
+    <li>Supprimer des fichiers ou des dossiers vides.</li>
+    <li>Valider l’arborescence avec des outils de visualisation.</li>
+  </ul>
+  <hr>
+  <h3>Contexte du TP</h3>
+  <p>Vous êtes chargé de créer l’organisation d’un projet pour une classe de secondaire 5.  
+     Les matières concernées sont :</p>
+  <ul>
+    <li><strong>Mathématiques</strong></li>
+    <li><strong>Français</strong></li>
+    <li><strong>Histoire</strong></li>
+    <li><strong>Sciences</strong></li>
+  </ul>
+  <p>Pour chaque matière, prévoyez trois sous-dossiers : <code>Cours</code>, <code>Devoirs</code>, <code>Examens</code>.</p>
+  <hr>
+  <h3>Étapes à suivre</h3>
+  <h4>1. Création des dossiers</h4>
+  <pre><code>Projet_Scolaire/
+├── Mathématiques/
+│   ├── Cours/
+│   ├── Devoirs/
+│   └── Examens/
+├── Français/
+│   ├── Cours/
+│   ├── Devoirs/
+│   └── Examens/
+├── Histoire/
+│   ├── Cours/
+│   ├── Devoirs/
+│   └── Examens/
+└── Sciences/
+    ├── Cours/
+    ├── Devoirs/
+    └── Examens/</code></pre>
+  <h4>2. Création de fichiers</h4>
+  <ul>
+    <li>Mathématiques/Devoirs/ : crée <code>devoir1.txt</code> avec « Résoudre les équations ».</li>
+    <li>Français/Cours/ : crée un fichier vide <code>lecture.doc</code>.</li>
+    <li>Sciences/Examens/ : crée <code>examen_final.txt</code> avec « Chapitre 1 à 5 ».</li>
+  </ul>
+  <h4>3. Déplacement de fichiers</h4>
+  <ul>
+    <li>Déplace <code>lecture.doc</code> de Français/Cours/ vers Français/Devoirs/.</li>
+    <li>Crée <code>plan_histoire.doc</code> dans Histoire/, puis déplace-le dans Histoire/Cours/.</li>
+  </ul>
+  <h4>4. Suppressions</h4>
+  <ul>
+    <li>Supprime <code>devoir1.txt</code> de Mathématiques/Devoirs/.</li>
+    <li>Supprime le dossier vide Sciences/Devoirs/.</li>
+  </ul>
+  <h4>5. Vérification finale</h4>
+  <p>Utilise <code>tree</code> (ou <code>tree /f</code> sous Windows) pour valider la structure.</p>
+  <hr>
+  <h3>Rappel des commandes utiles</h3>
+  <p><code>mkdir</code>, <code>cd</code>, <code>touch</code>, <code>echo</code>, <code>mv</code>, <code>rm</code>, <code>rmdir</code>, <code>tree</code></p>
+  <p><em>Remarque : ce TP peut se faire sous Linux ou PowerShell ; correction pour les deux disponible.</em></p>
+</div>
